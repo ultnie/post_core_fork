@@ -45,12 +45,12 @@ import su.nsk.iae.post.poST.Variable;
 @SuppressWarnings("all")
 public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
   private final PoSTPackage ePackage = PoSTPackage.eINSTANCE;
-  
+
   private final PoSTLibraryProvider libraryProvider = new PoSTLibraryProvider();
-  
+
   @Inject
   private IQualifiedNameProvider qualifiedNameProvider;
-  
+
   @Override
   public IScope getScope(final EObject context, final EReference reference) {
     boolean _matched = false;
@@ -152,21 +152,21 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     }
     return super.getScope(context, reference);
   }
-  
+
   private IScope scopeFor(final Iterable<? extends EObject> elements) {
     final Function<EObject, QualifiedName> _function = (EObject x) -> {
       return this.qualifiedNameProvider.getFullyQualifiedName(x);
     };
     return Scopes.<EObject>scopeFor(elements, _function, IScope.NULLSCOPE);
   }
-  
+
   private IScope scopeForStatementExpression_Variable(final EObject context) {
     final Model model = EcoreUtil2.<Model>getContainerOfType(context, Model.class);
     final Program program = EcoreUtil2.<Program>getContainerOfType(context, Program.class);
     final su.nsk.iae.post.poST.Process process = EcoreUtil2.<su.nsk.iae.post.poST.Process>getContainerOfType(context, su.nsk.iae.post.poST.Process.class);
     return this.scopeFor(this.getAvailableVar(model, program, process));
   }
-  
+
   private IScope scopeForFunctionCall_Function(final EObject context) {
     final Model model = EcoreUtil2.<Model>getContainerOfType(context, Model.class);
     final List<su.nsk.iae.post.poST.Function> res = Stream.<su.nsk.iae.post.poST.Function>concat(
@@ -174,7 +174,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
       this.libraryProvider.getLibraryFunctions(context).stream()).collect(Collectors.<su.nsk.iae.post.poST.Function>toList());
     return this.scopeFor(res);
   }
-  
+
   private IScope scopeForVarInitDeclaration_Fb(final EObject context) {
     final Model model = EcoreUtil2.<Model>getContainerOfType(context, Model.class);
     final List<FunctionBlock> res = Stream.<FunctionBlock>concat(
@@ -182,7 +182,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
       this.libraryProvider.getLibraryFunctionBlocks(context).stream()).collect(Collectors.<FunctionBlock>toList());
     return this.scopeFor(res);
   }
-  
+
   private IScope scopeForParamAssignment_Variable(final EObject context) {
     FunctionCall _containerOfType = EcoreUtil2.<FunctionCall>getContainerOfType(context, FunctionCall.class);
     boolean _tripleNotEquals = (_containerOfType != null);
@@ -197,22 +197,22 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     }
     return this.scopeFor(Collections.<EObject>emptyList());
   }
-  
+
   private IScope scopeForAttachVariableConfElement_ProgramVar(final EObject context) {
     final ProgramConfiguration programConf = EcoreUtil2.<ProgramConfiguration>getContainerOfType(context, ProgramConfiguration.class);
     return this.scopeFor(PoSTScopeProvider.getProgramInOutVar(programConf.getProgram()));
   }
-  
+
   private IScope scopeForTemplateProcessAttachVariableConfElement_ProgramVar(final EObject context) {
     final TemplateProcessConfElement processConf = EcoreUtil2.<TemplateProcessConfElement>getContainerOfType(context, TemplateProcessConfElement.class);
     return this.scopeFor(PoSTScopeProvider.getProcessTemplateVar(processConf.getProcess()));
   }
-  
+
   private IScope scopeForTemplateProcessConfElement_Process(final EObject context) {
     final ProgramConfiguration programConf = EcoreUtil2.<ProgramConfiguration>getContainerOfType(context, ProgramConfiguration.class);
     return this.scopeFor(programConf.getProgram().getProcesses());
   }
-  
+
   private IScope scopeForProcessStatements_Process(final EObject context) {
     final su.nsk.iae.post.poST.Process process = EcoreUtil2.<su.nsk.iae.post.poST.Process>getContainerOfType(context, su.nsk.iae.post.poST.Process.class);
     final Program program = EcoreUtil2.<Program>getContainerOfType(process, Program.class);
@@ -221,17 +221,17 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
       program.getProcesses().stream()).collect(Collectors.<Variable>toList());
     return this.scopeFor(res);
   }
-  
+
   private IScope scopeForSetStateStatement_State(final EObject context) {
     final su.nsk.iae.post.poST.Process process = EcoreUtil2.<su.nsk.iae.post.poST.Process>getContainerOfType(context, su.nsk.iae.post.poST.Process.class);
     return this.scopeFor(process.getStates());
   }
-  
+
   private IScope scopeForProgramConfiguration_Task(final EObject context) {
     final Resource res = EcoreUtil2.<Resource>getContainerOfType(context, Resource.class);
     return this.scopeFor(res.getResStatement().getTasks());
   }
-  
+
   private List<SymbolicVariable> getAvailableVar(final Model model, final Program program, final su.nsk.iae.post.poST.Process process) {
     Stream<SymbolicVariable> res = Stream.<SymbolicVariable>of();
     if ((process != null)) {
@@ -263,7 +263,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     }
     return res.collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getGlobalVars(final EList<GlobalVarDeclaration> list) {
     final java.util.function.Function<GlobalVarDeclaration, EList<VarInitDeclaration>> _function = (GlobalVarDeclaration x) -> {
       return x.getVarsSimple();
@@ -290,7 +290,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
       list.stream().<EList<VarInitDeclaration>>map(_function).<VarInitDeclaration>flatMap(_function_1).<EList<SymbolicVariable>>map(_function_2), 
       list.stream().<EList<GlobalVarInitDeclaration>>map(_function_3).<GlobalVarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5)).<SymbolicVariable>flatMap(_function_6).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getProgramInOutVar(final Program program) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -328,7 +328,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
         program.getProgOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         program.getProgInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getFunctionBlockInOutVar(final FunctionBlock fb) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -366,7 +366,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
         fb.getFbOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         fb.getFbInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getFunctionInOutVar(final su.nsk.iae.post.poST.Function function) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -404,7 +404,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
         function.getFunOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         function.getFunInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getProgramVar(final Program program) {
     final java.util.function.Function<VarDeclaration, EList<VarInitDeclaration>> _function = (VarDeclaration x) -> {
       return x.getVars();
@@ -442,13 +442,13 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
         program.getProgTempVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         program.getProgExternVars().stream().<EList<ExternalVarInitDeclaration>>map(_function_6).<ExternalVarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<Variable> getProcessTemplateVar(final su.nsk.iae.post.poST.Process process) {
     return Stream.<Variable>concat(
       PoSTScopeProvider.getProcessInOutVar(process).stream(), 
       PoSTScopeProvider.getProcessProcessVar(process).stream()).collect(Collectors.<Variable>toList());
   }
-  
+
   private static List<ProcessVariable> getProcessProcessVar(final su.nsk.iae.post.poST.Process process) {
     final java.util.function.Function<ProcessVarDeclaration, EList<ProcessVarInitDeclaration>> _function = (ProcessVarDeclaration x) -> {
       return x.getVars();
@@ -464,7 +464,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     };
     return process.getProcProcessVars().stream().<EList<ProcessVarInitDeclaration>>map(_function).<ProcessVarInitDeclaration>flatMap(_function_1).<EList<ProcessVariable>>map(_function_2).<ProcessVariable>flatMap(_function_3).collect(Collectors.<ProcessVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getProcessInOutVar(final su.nsk.iae.post.poST.Process process) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -502,7 +502,7 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
         process.getProcOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         process.getProcInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).collect(Collectors.<SymbolicVariable>toList());
   }
-  
+
   private static List<SymbolicVariable> getProcessVar(final su.nsk.iae.post.poST.Process process) {
     final java.util.function.Function<VarDeclaration, EList<VarInitDeclaration>> _function = (VarDeclaration x) -> {
       return x.getVars();

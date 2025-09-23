@@ -8,6 +8,7 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import su.nsk.iae.post.poST.Model
+import su.nsk.iae.post.generator.py.PyGenerator
 
 class PoSTGenerator extends AbstractGenerator {
 	
@@ -26,12 +27,17 @@ class PoSTGenerator extends AbstractGenerator {
 
 	override beforeGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		if (resource.allContents.empty) {
+			val gen = new PyGenerator
+			gen.doGenerate(resource, fsa, context)
 			return
 		}
 		val model = resource.allContents.toIterable.filter(Model).get(0)
+		generators.add(new PyGenerator)
+		/*
 		if (generators.empty) {
 			initGenerators()
 		}
+		*/
 		for (g : generators) {
 			g.model = model
 			g.beforeGenerate(resource, fsa, context)

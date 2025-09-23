@@ -22,12 +22,7 @@ public final class EmptyTemplateFile extends AbstractFileTemplate {
       Path _path = new Path("/resources/examples/Template.post");
       final InputStream templateStream = FileLocator.resolve(FileLocator.find(bundle, _path, null)).openStream();
       StringConcatenation _builder = new StringConcatenation();
-      String _folder = this.getFolder();
-      _builder.append(_folder);
-      _builder.append("/");
-      String _name = this.getName();
-      _builder.append(_name);
-      _builder.append(".post");
+      _builder.append("�folder�/�name�.post");
       generator.generate(_builder, Files.readStreamIntoString(templateStream));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

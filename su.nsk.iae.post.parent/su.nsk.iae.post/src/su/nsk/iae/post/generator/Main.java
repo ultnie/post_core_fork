@@ -31,7 +31,7 @@ public class Main {
 			service(args);
 		}
 	}
-	
+
 	private static void singleExecutions(String[] args) {
 		if (args.length == 0) {
 			System.err.println("Aborting: no path to poST file provided!");
@@ -39,28 +39,31 @@ public class Main {
 		}
 		Injector injector = new PoSTStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
-		main.runGenerator(
-				Arrays.stream(args).filter(x -> x.contains(".post")).findFirst().get(), 
-				Arrays.stream(args).anyMatch(x -> x.equals("-l"))
-		);
+		String filename = Arrays.stream(args).filter(x -> x.startsWith("-o=")).map(x -> x.substring(3)).findFirst().orElse("poST_code.py");
+		main.runGenerator(Arrays.stream(args).filter(x -> x.contains(".post")).findFirst().get(),
+				Arrays.stream(args).anyMatch(x -> x.equals("-l")), filename);
 	}
-	
+
 	private static boolean loop = true;
-	
+
 	private static void service(String[] args) {
 		boolean local = Arrays.stream(args).anyMatch(x -> x.equals("-l"));
 		Injector injector = new PoSTStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
-            public void run() {
+			public void run() {
 				loop = false;
-            }
+			}
 		});
 		Scanner scanner = new Scanner(System.in);
 		while (loop) {
 			String file = scanner.next();
-			main.runGenerator(file, local);
+			String filename = scanner.nextLine().trim();
+			if (filename.isEmpty()) {
+				filename = "poST_code.py";
+			}
+			main.runGenerator(file, local, filename);
 		}
 		scanner.close();
 	}
@@ -74,10 +77,10 @@ public class Main {
 	@Inject
 	private GeneratorDelegate generator;
 
-	@Inject 
+	@Inject
 	private JavaIoFileSystemAccess fileAccess;
 
-	protected void runGenerator(String string, boolean local) {
+	protected void runGenerator(String string, boolean local, String filename) {
 		// Load the resource
 		ResourceSet set = resourceSetProvider.get();
 		Resource resource = set.getResource(URI.createFileURI(string), true);
@@ -85,30 +88,29 @@ public class Main {
 		// Validate the resource
 		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
 		if (checkErrors(issues)) {
-			System.out.println("Code generation aborted.");
 			printIssues(issues);
 			return;
 		}
 
 		// Configure and start the generator
-		if (local) {
-			fileAccess.setOutputPath(".");
-		} else {
-			fileAccess.setOutputPath("src-gen/");
+		if (filename == null || filename.isEmpty()) {
+			filename = "poST_code.py";
 		}
+		fileAccess.setOutputPath("./" + filename);
 		GeneratorContext context = new GeneratorContext();
 		context.setCancelIndicator(CancelIndicator.NullImpl);
 		try {
 			generator.generate(resource, fileAccess, context);
 		} catch (Exception e) {
-			System.out.println("Code generation aborted.");
+			System.out.println("Generator error " + e.getMessage() + " ");
+			e.printStackTrace(System.out);
 			return;
 		}
 
 		System.out.println("Code generation finished.");
 		printIssues(issues);
 	}
-	
+
 	private boolean checkErrors(List<Issue> issues) {
 		for (Issue issue : issues) {
 			if (issue.getSeverity() == Severity.ERROR) {
@@ -117,7 +119,7 @@ public class Main {
 		}
 		return false;
 	}
-	
+
 	private void printIssues(List<Issue> issues) {
 		for (Issue issue : issues) {
 			System.err.println(issue);

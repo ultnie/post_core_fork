@@ -41,17 +41,14 @@ public final class HandDryerProject extends AbstractProjectTemplate {
         Path _path = new Path("/resources/examples/HandDryer.post");
         final InputStream handDryerStream = FileLocator.resolve(FileLocator.find(bundle, _path, null)).openStream();
         StringConcatenation _builder = new StringConcatenation();
-        _builder.append(PoSTProjectTemplateProvider.srcFolder);
-        _builder.append("/handDryer.post");
+        _builder.append("�PoSTProjectTemplateProvider.srcFolder�/handDryer.post");
         this.addFile(it, _builder, Files.readStreamIntoString(handDryerStream));
         for (final String lib : PoSTProjectTemplateProvider.libFiles) {
           {
             Path _path_1 = new Path(("/resources/library/" + lib));
             final InputStream libStream = FileLocator.resolve(FileLocator.find(bundle, _path_1, null)).openStream();
             StringConcatenation _builder_1 = new StringConcatenation();
-            _builder_1.append(PoSTProjectTemplateProvider.libFolder);
-            _builder_1.append("/");
-            _builder_1.append(lib);
+            _builder_1.append("�PoSTProjectTemplateProvider.libFolder�/�lib�");
             this.addFile(it, _builder_1, Files.readStreamIntoString(libStream));
           }
         }

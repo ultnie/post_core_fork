@@ -42,39 +42,39 @@ import su.nsk.iae.post.poST.impl.VarListImpl;
 @SuppressWarnings("all")
 public class PoSTLibraryProvider {
   private static final String libDirName = "Tool Library";
-  
+
   private static final String pouTag = "pou";
-  
+
   private static final String pouNameAttribute = "name";
-  
+
   private static final String pouTypeAttribute = "pouType";
-  
+
   private static final String inVarTag = "inputVars";
-  
+
   private static final String outVarTag = "outputVars";
-  
+
   private static final String inOutVarTag = "inOutVars";
-  
+
   private static final String varTag = "variable";
-  
+
   private static final String varNameAttribute = "name";
-  
+
   private static final String varTypeTag = "type";
-  
+
   private static final String functionReturnTypeTag = "type";
-  
+
   private static final String functionAttributeValue = "function";
-  
+
   private static final String functionBlockAttributeValue = "functionBlock";
-  
+
   private IFolder libDir = null;
-  
+
   private Path libDirPath = null;
-  
+
   private long hash = 0;
-  
+
   private PoSTFactory eFactory = PoSTFactory.eINSTANCE;
-  
+
   private DocumentBuilder db = new Function0<DocumentBuilder>() {
     @Override
     public DocumentBuilder apply() {
@@ -86,21 +86,21 @@ public class PoSTLibraryProvider {
       }
     }
   }.apply();
-  
+
   private List<Function> functions = new ArrayList<Function>();
-  
+
   private List<FunctionBlock> functionBlocks = new ArrayList<FunctionBlock>();
-  
+
   public List<Function> getLibraryFunctions(final EObject context) {
     this.parseLibrary(context);
     return this.functions;
   }
-  
+
   public List<FunctionBlock> getLibraryFunctionBlocks(final EObject context) {
     this.parseLibrary(context);
     return this.functionBlocks;
   }
-  
+
   private void parseLibrary(final EObject context) {
     if ((this.libDir == null)) {
       this.initLibDirPath(context);
@@ -109,7 +109,7 @@ public class PoSTLibraryProvider {
       this.parseLibrary();
     }
   }
-  
+
   private void parseLibrary() {
     try {
       final Predicate<Path> _function = (Path file) -> {
@@ -123,7 +123,7 @@ public class PoSTLibraryProvider {
       throw Exceptions.sneakyThrow(_e);
     }
   }
-  
+
   private void parseFile(final Path file) {
     try {
       final Document doc = this.db.parse(file.toString());
@@ -165,25 +165,25 @@ public class PoSTLibraryProvider {
       throw Exceptions.sneakyThrow(_e);
     }
   }
-  
+
   private InputVarDeclaration parseInVars(final Element pou) {
     final InputVarDeclaration res = this.eFactory.createInputVarDeclaration();
     ((InputVarDeclarationImpl) res).eSet(PoSTPackage.INPUT_VAR_DECLARATION__VARS, this.parseVars(pou, PoSTLibraryProvider.inVarTag));
     return res;
   }
-  
+
   private OutputVarDeclaration parseOutVars(final Element pou) {
     final OutputVarDeclaration res = this.eFactory.createOutputVarDeclaration();
     ((OutputVarDeclarationImpl) res).eSet(PoSTPackage.OUTPUT_VAR_DECLARATION__VARS, this.parseVars(pou, PoSTLibraryProvider.outVarTag));
     return res;
   }
-  
+
   private InputOutputVarDeclaration parseInOutVars(final Element pou) {
     final InputOutputVarDeclaration res = this.eFactory.createInputOutputVarDeclaration();
     ((InputOutputVarDeclarationImpl) res).eSet(PoSTPackage.INPUT_OUTPUT_VAR_DECLARATION__VARS, this.parseVars(pou, PoSTLibraryProvider.inOutVarTag));
     return res;
   }
-  
+
   private List<VarInitDeclaration> parseVars(final Element pou, final String tag) {
     final List<VarInitDeclaration> res = new ArrayList<VarInitDeclaration>();
     final NodeList varsTagNode = pou.getElementsByTagName(tag);
@@ -207,7 +207,7 @@ public class PoSTLibraryProvider {
     }
     return res;
   }
-  
+
   private VarInitDeclaration constructVarInitDeclaration(final String name, final String type) {
     final SymbolicVariable symbolicVariable = this.eFactory.createSymbolicVariable();
     symbolicVariable.setName(name);
@@ -220,7 +220,7 @@ public class PoSTLibraryProvider {
     varInitDeclaration.setSpec(simpleSpecificationInit);
     return varInitDeclaration;
   }
-  
+
   private Path initLibDirPath(final EObject context) {
     Path _xblockexpression = null;
     {
@@ -230,7 +230,7 @@ public class PoSTLibraryProvider {
     }
     return _xblockexpression;
   }
-  
+
   private boolean check—hanges() {
     try {
       final Predicate<Path> _function = (Path file) -> {

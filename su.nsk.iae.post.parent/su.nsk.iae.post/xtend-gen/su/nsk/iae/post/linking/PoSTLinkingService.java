@@ -35,7 +35,7 @@ public class PoSTLinkingService extends DefaultLinkingService {
     final EObject result = eObjectDescription.getEObjectOrProxy();
     return Collections.<EObject>singletonList(result);
   }
-  
+
   private IEObjectDescription getSingleElement(final Iterable<IEObjectDescription> elements, final QualifiedName name) {
     for (final IEObjectDescription e : elements) {
       String _last = IterableExtensions.<String>last(e.getQualifiedName().getSegments());
@@ -47,7 +47,7 @@ public class PoSTLinkingService extends DefaultLinkingService {
     }
     return null;
   }
-  
+
   private String getCrossRefNodeAsString(final EObject context, final EReference ref, final INode node) throws IllegalNodeException {
     return node.getText();
   }

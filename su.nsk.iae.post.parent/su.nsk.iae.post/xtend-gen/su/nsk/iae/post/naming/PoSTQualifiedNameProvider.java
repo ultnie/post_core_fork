@@ -68,7 +68,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
     }
     return super.qualifiedName(ele);
   }
-  
+
   private QualifiedName getSymbolicVariableQualifiedName(final SymbolicVariable ele) {
     boolean _checkVarInitDeclaration = this.checkVarInitDeclaration(ele);
     if (_checkVarInitDeclaration) {
@@ -80,27 +80,27 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
     }
     return QualifiedName.create(ele.getName());
   }
-  
+
   private QualifiedName getTemplateProcessConfElementQualifiedName(final TemplateProcessConfElement ele) {
     final Resource res = EcoreUtil2.<Resource>getContainerOfType(ele, Resource.class);
     final ProgramConfiguration programConf = EcoreUtil2.<ProgramConfiguration>getContainerOfType(ele, ProgramConfiguration.class);
     return QualifiedName.create(res.getName(), programConf.getName(), ele.getName());
   }
-  
+
   private QualifiedName getTaskQualifiedName(final Task ele) {
     final Resource res = EcoreUtil2.<Resource>getContainerOfType(ele, Resource.class);
     return QualifiedName.create(res.getName(), ele.getName());
   }
-  
+
   private boolean checkVarInitDeclaration(final EObject ele) {
     return ((EcoreUtil2.<VarInitDeclaration>getContainerOfType(ele, VarInitDeclaration.class) != null) || (EcoreUtil2.<ProcessVarInitDeclaration>getContainerOfType(ele, ProcessVarInitDeclaration.class) != null));
   }
-  
+
   private boolean checkStatementList(final EObject ele) {
     StatementList _containerOfType = EcoreUtil2.<StatementList>getContainerOfType(ele, StatementList.class);
     return (_containerOfType != null);
   }
-  
+
   private QualifiedName getInitVariableQualifiedName(final SymbolicVariable ele) {
     final Program program = EcoreUtil2.<Program>getContainerOfType(ele, Program.class);
     if ((program != null)) {
@@ -112,7 +112,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
     }
     return QualifiedName.create(ele.getName());
   }
-  
+
   private QualifiedName getVariableQualifiedName(final SymbolicVariable ele) {
     final Program program = EcoreUtil2.<Program>getContainerOfType(ele, Program.class);
     if ((program != null)) {
@@ -127,7 +127,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
     }
     return QualifiedName.create(ele.getName());
   }
-  
+
   public static boolean checkProgramVars(final Program program, final String eleName) {
     return (Stream.<EList<SymbolicVariable>>concat(
       program.getProgVars().stream().<EList<VarInitDeclaration>>map(((java.util.function.Function<VarDeclaration, EList<VarInitDeclaration>>) (VarDeclaration x) -> {
@@ -149,7 +149,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
       return x.getName().equals(eleName);
     })) || PoSTQualifiedNameProvider.checkProgramInOutVars(program, eleName));
   }
-  
+
   public static boolean checkProgramInOutVars(final Program program, final String eleName) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -190,7 +190,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
         program.getProgOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         program.getProgInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).anyMatch(_function_10);
   }
-  
+
   public static boolean checkFBVars(final FunctionBlock fb, final String eleName) {
     return (Stream.<EList<SymbolicVariable>>concat(
       fb.getFbVars().stream().<EList<VarInitDeclaration>>map(((java.util.function.Function<VarDeclaration, EList<VarInitDeclaration>>) (VarDeclaration x) -> {
@@ -212,7 +212,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
       return x.getName().equals(eleName);
     })) || PoSTQualifiedNameProvider.checkFBInOutVars(fb, eleName));
   }
-  
+
   public static boolean checkFBInOutVars(final FunctionBlock fb, final String eleName) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();
@@ -253,7 +253,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
         fb.getFbOutVars().stream().<EList<VarInitDeclaration>>map(_function_3).<VarInitDeclaration>flatMap(_function_4).<EList<SymbolicVariable>>map(_function_5), 
         fb.getFbInOutVars().stream().<EList<VarInitDeclaration>>map(_function_6).<VarInitDeclaration>flatMap(_function_7).<EList<SymbolicVariable>>map(_function_8))).<SymbolicVariable>flatMap(_function_9).anyMatch(_function_10);
   }
-  
+
   public static boolean checkProcessVars(final su.nsk.iae.post.poST.Process process, final String eleName) {
     return (Stream.<EList<? extends Variable>>concat(
       process.getProcVars().stream().<EList<VarInitDeclaration>>map(((java.util.function.Function<VarDeclaration, EList<VarInitDeclaration>>) (VarDeclaration x) -> {
@@ -283,7 +283,7 @@ public class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePr
       return x.getName().equals(eleName);
     })) || PoSTQualifiedNameProvider.checkProcessInOutVars(process, eleName));
   }
-  
+
   public static boolean checkProcessInOutVars(final su.nsk.iae.post.poST.Process process, final String eleName) {
     final java.util.function.Function<InputVarDeclaration, EList<VarInitDeclaration>> _function = (InputVarDeclaration x) -> {
       return x.getVars();

@@ -13,14 +13,15 @@ import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import su.nsk.iae.post.generator.py.PyGenerator;
 import su.nsk.iae.post.poST.Model;
 
 @SuppressWarnings("all")
 public class PoSTGenerator extends AbstractGenerator {
   private static final String EXTENSION_ID = "su.nsk.iae.post.post_extension";
-  
+
   private static final List<IPoSTGenerator> generators = new ArrayList<IPoSTGenerator>();
-  
+
   public static void initGenerators() {
     try {
       final IConfigurationElement[] configuration = Platform.getExtensionRegistry().getConfigurationElementsFor(PoSTGenerator.EXTENSION_ID);
@@ -36,18 +37,18 @@ public class PoSTGenerator extends AbstractGenerator {
       throw Exceptions.sneakyThrow(_e);
     }
   }
-  
+
   @Override
   public void beforeGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     boolean _isEmpty = IteratorExtensions.isEmpty(resource.getAllContents());
     if (_isEmpty) {
+      final PyGenerator gen = new PyGenerator();
+      gen.doGenerate(resource, fsa, context);
       return;
     }
     final Model model = ((Model[])Conversions.unwrapArray((Iterables.<Model>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), Model.class)), Model.class))[0];
-    boolean _isEmpty_1 = PoSTGenerator.generators.isEmpty();
-    if (_isEmpty_1) {
-      PoSTGenerator.initGenerators();
-    }
+    PyGenerator _pyGenerator = new PyGenerator();
+    PoSTGenerator.generators.add(_pyGenerator);
     for (final IPoSTGenerator g : PoSTGenerator.generators) {
       {
         g.setModel(model);
@@ -55,14 +56,14 @@ public class PoSTGenerator extends AbstractGenerator {
       }
     }
   }
-  
+
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     for (final IPoSTGenerator g : PoSTGenerator.generators) {
       g.doGenerate(resource, fsa, context);
     }
   }
-  
+
   @Override
   public void afterGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     for (final IPoSTGenerator g : PoSTGenerator.generators) {
