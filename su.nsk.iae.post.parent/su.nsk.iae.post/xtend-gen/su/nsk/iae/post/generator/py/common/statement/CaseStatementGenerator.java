@@ -1,0 +1,101 @@
+package su.nsk.iae.post.generator.py.common.statement;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtend2.lib.StringConcatenation;
+import su.nsk.iae.post.generator.py.common.ProcessGenerator;
+import su.nsk.iae.post.generator.py.common.ProgramGenerator;
+import su.nsk.iae.post.generator.py.common.StateGenerator;
+import su.nsk.iae.post.generator.py.common.StatementListGenerator;
+import su.nsk.iae.post.generator.py.common.util.GeneratorUtil;
+import su.nsk.iae.post.poST.CaseElement;
+import su.nsk.iae.post.poST.CaseListElement;
+import su.nsk.iae.post.poST.CaseStatement;
+import su.nsk.iae.post.poST.SignedInteger;
+import su.nsk.iae.post.poST.Statement;
+import su.nsk.iae.post.poST.StatementList;
+
+@SuppressWarnings("all")
+public class CaseStatementGenerator extends IStatementGenerator {
+  public CaseStatementGenerator(final ProgramGenerator program, final ProcessGenerator process, final StateGenerator state, final StatementListGenerator context) {
+    super(program, process, state, context);
+  }
+
+  @Override
+  public boolean checkStatement(final Statement statement) {
+    return (statement instanceof CaseStatement);
+  }
+
+  @Override
+  public String generateStatement(final Statement statement) {
+    final CaseStatement s = ((CaseStatement) statement);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("match ");
+    String _generateExpression = this.context.generateExpression(s.getCond());
+    _builder.append(_generateExpression);
+    _builder.append(":");
+    _builder.newLineIfNotEmpty();
+    {
+      EList<CaseElement> _caseElements = s.getCaseElements();
+      for(final CaseElement e : _caseElements) {
+        _builder.append("\t");
+        _builder.append("case ");
+        {
+          EList<CaseListElement> _caseListElement = e.getCaseList().getCaseListElement();
+          for(final CaseListElement c : _caseListElement) {
+            _builder.append(" ");
+            String _generateCaseListElement = this.generateCaseListElement(c);
+            _builder.append(_generateCaseListElement, "\t");
+            {
+              int _indexOf = e.getCaseList().getCaseListElement().indexOf(c);
+              int _size = e.getCaseList().getCaseListElement().size();
+              int _minus = (_size - 1);
+              boolean _lessThan = (_indexOf < _minus);
+              if (_lessThan) {
+                _builder.append(", ");
+              } else {
+                _builder.append(":");
+              }
+            }
+          }
+        }
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        String _generateStatementList = this.context.generateStatementList(e.getStatement());
+        _builder.append(_generateStatementList, "\t\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    {
+      StatementList _elseStatement = s.getElseStatement();
+      boolean _tripleNotEquals = (_elseStatement != null);
+      if (_tripleNotEquals) {
+        _builder.append("\t");
+        _builder.append("case _:");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
+        String _generateStatementList_1 = this.context.generateStatementList(s.getElseStatement());
+        _builder.append(_generateStatementList_1, "\t\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder.toString();
+  }
+
+  private String generateCaseListElement(final CaseListElement e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      SignedInteger _num = e.getNum();
+      boolean _tripleNotEquals = (_num != null);
+      if (_tripleNotEquals) {
+        String _generateSignedInteger = GeneratorUtil.generateSignedInteger(e.getNum());
+        _builder.append(_generateSignedInteger);
+      } else {
+        String _generateVar = this.context.generateVar(e.getVariable());
+        _builder.append(_generateVar);
+      }
+    }
+    return _builder.toString();
+  }
+}

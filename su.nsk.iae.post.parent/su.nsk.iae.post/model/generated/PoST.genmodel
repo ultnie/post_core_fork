@@ -34,6 +34,7 @@
       <genEnumLiterals ecoreEnumLiteral="PoST.ecore#//UnaryOperator/UNMINUS"/>
     </genEnums>
     <genClasses ecoreClass="PoST.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//Model/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//Model/conf"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//Model/globVars"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//Model/programs"/>
@@ -214,6 +215,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//StatementList/statements"/>
     </genClasses>
     <genClasses ecoreClass="PoST.ecore#//Statement"/>
+    <genClasses ecoreClass="PoST.ecore#//Inline_code">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PoST.ecore#//Inline_code/inline_code"/>
+    </genClasses>
     <genClasses ecoreClass="PoST.ecore#//AssignmentStatement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PoST.ecore#//AssignmentStatement/variable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PoST.ecore#//AssignmentStatement/array"/>

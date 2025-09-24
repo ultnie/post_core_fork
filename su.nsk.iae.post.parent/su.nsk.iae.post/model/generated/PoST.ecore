@@ -2,6 +2,8 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="poST" nsURI="http://www.nsk.su/iae/post/PoST" nsPrefix="poST">
   <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" eType="#//Inline_code"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conf" eType="#//Configuration"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="globVars" upperBound="-1"
@@ -271,6 +273,10 @@
         eType="#//Statement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Inline_code" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inline_code" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssignmentStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//SymbolicVariable"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="array" eType="#//ArrayVariable"

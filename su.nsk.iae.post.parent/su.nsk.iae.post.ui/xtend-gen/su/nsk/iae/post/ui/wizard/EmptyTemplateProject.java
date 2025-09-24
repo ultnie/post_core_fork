@@ -41,14 +41,17 @@ public final class EmptyTemplateProject extends AbstractProjectTemplate {
         Path _path = new Path("/resources/examples/Template.post");
         final InputStream templateStream = FileLocator.resolve(FileLocator.find(bundle, _path, null)).openStream();
         StringConcatenation _builder = new StringConcatenation();
-        _builder.append("�PoSTProjectTemplateProvider.srcFolder�/template.post");
+        _builder.append(PoSTProjectTemplateProvider.srcFolder);
+        _builder.append("/template.post");
         this.addFile(it, _builder, Files.readStreamIntoString(templateStream));
         for (final String lib : PoSTProjectTemplateProvider.libFiles) {
           {
             Path _path_1 = new Path(("/resources/library/" + lib));
             final InputStream libStream = FileLocator.resolve(FileLocator.find(bundle, _path_1, null)).openStream();
             StringConcatenation _builder_1 = new StringConcatenation();
-            _builder_1.append("�PoSTProjectTemplateProvider.libFolder�/�lib�");
+            _builder_1.append(PoSTProjectTemplateProvider.libFolder);
+            _builder_1.append("/");
+            _builder_1.append(lib);
             this.addFile(it, _builder_1, Files.readStreamIntoString(libStream));
           }
         }

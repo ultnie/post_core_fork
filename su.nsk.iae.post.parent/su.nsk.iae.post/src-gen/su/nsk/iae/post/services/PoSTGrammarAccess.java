@@ -29,18 +29,21 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	public class ModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.Model");
 		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
-		private final Assignment cConfAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
-		private final RuleCall cConfConfigurationParserRuleCall_0_0 = (RuleCall)cConfAssignment_0.eContents().get(0);
-		private final Assignment cGlobVarsAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
-		private final RuleCall cGlobVarsGlobalVarDeclarationParserRuleCall_1_0 = (RuleCall)cGlobVarsAssignment_1.eContents().get(0);
-		private final Assignment cProgramsAssignment_2 = (Assignment)cUnorderedGroup.eContents().get(2);
-		private final RuleCall cProgramsProgramParserRuleCall_2_0 = (RuleCall)cProgramsAssignment_2.eContents().get(0);
-		private final Assignment cFbsAssignment_3 = (Assignment)cUnorderedGroup.eContents().get(3);
-		private final RuleCall cFbsFunctionBlockParserRuleCall_3_0 = (RuleCall)cFbsAssignment_3.eContents().get(0);
-		private final Assignment cFunsAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
-		private final RuleCall cFunsFunctionParserRuleCall_4_0 = (RuleCall)cFunsAssignment_4.eContents().get(0);
+		private final Assignment cImportsAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
+		private final RuleCall cImportsInline_codeParserRuleCall_0_0 = (RuleCall)cImportsAssignment_0.eContents().get(0);
+		private final Assignment cConfAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
+		private final RuleCall cConfConfigurationParserRuleCall_1_0 = (RuleCall)cConfAssignment_1.eContents().get(0);
+		private final Assignment cGlobVarsAssignment_2 = (Assignment)cUnorderedGroup.eContents().get(2);
+		private final RuleCall cGlobVarsGlobalVarDeclarationParserRuleCall_2_0 = (RuleCall)cGlobVarsAssignment_2.eContents().get(0);
+		private final Assignment cProgramsAssignment_3 = (Assignment)cUnorderedGroup.eContents().get(3);
+		private final RuleCall cProgramsProgramParserRuleCall_3_0 = (RuleCall)cProgramsAssignment_3.eContents().get(0);
+		private final Assignment cFbsAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
+		private final RuleCall cFbsFunctionBlockParserRuleCall_4_0 = (RuleCall)cFbsAssignment_4.eContents().get(0);
+		private final Assignment cFunsAssignment_5 = (Assignment)cUnorderedGroup.eContents().get(5);
+		private final RuleCall cFunsFunctionParserRuleCall_5_0 = (RuleCall)cFunsAssignment_5.eContents().get(0);
 		
 		//Model:
+		//    (imports=Inline_code)? &
 		//    (conf=Configuration)? &
 		//    (globVars+=GlobalVarDeclaration)* &
 		//    (programs+=Program)* &
@@ -48,6 +51,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		//    (funs+=Function)*;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//(imports=Inline_code)? &
 		//(conf=Configuration)? &
 		//(globVars+=GlobalVarDeclaration)* &
 		//(programs+=Program)* &
@@ -55,35 +59,41 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		//(funs+=Function)*
 		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
 		
+		//(imports=Inline_code)?
+		public Assignment getImportsAssignment_0() { return cImportsAssignment_0; }
+		
+		//Inline_code
+		public RuleCall getImportsInline_codeParserRuleCall_0_0() { return cImportsInline_codeParserRuleCall_0_0; }
+		
 		//(conf=Configuration)?
-		public Assignment getConfAssignment_0() { return cConfAssignment_0; }
+		public Assignment getConfAssignment_1() { return cConfAssignment_1; }
 		
 		//Configuration
-		public RuleCall getConfConfigurationParserRuleCall_0_0() { return cConfConfigurationParserRuleCall_0_0; }
+		public RuleCall getConfConfigurationParserRuleCall_1_0() { return cConfConfigurationParserRuleCall_1_0; }
 		
 		//(globVars+=GlobalVarDeclaration)*
-		public Assignment getGlobVarsAssignment_1() { return cGlobVarsAssignment_1; }
+		public Assignment getGlobVarsAssignment_2() { return cGlobVarsAssignment_2; }
 		
 		//GlobalVarDeclaration
-		public RuleCall getGlobVarsGlobalVarDeclarationParserRuleCall_1_0() { return cGlobVarsGlobalVarDeclarationParserRuleCall_1_0; }
+		public RuleCall getGlobVarsGlobalVarDeclarationParserRuleCall_2_0() { return cGlobVarsGlobalVarDeclarationParserRuleCall_2_0; }
 		
 		//(programs+=Program)*
-		public Assignment getProgramsAssignment_2() { return cProgramsAssignment_2; }
+		public Assignment getProgramsAssignment_3() { return cProgramsAssignment_3; }
 		
 		//Program
-		public RuleCall getProgramsProgramParserRuleCall_2_0() { return cProgramsProgramParserRuleCall_2_0; }
+		public RuleCall getProgramsProgramParserRuleCall_3_0() { return cProgramsProgramParserRuleCall_3_0; }
 		
 		//(fbs+=FunctionBlock)*
-		public Assignment getFbsAssignment_3() { return cFbsAssignment_3; }
+		public Assignment getFbsAssignment_4() { return cFbsAssignment_4; }
 		
 		//FunctionBlock
-		public RuleCall getFbsFunctionBlockParserRuleCall_3_0() { return cFbsFunctionBlockParserRuleCall_3_0; }
+		public RuleCall getFbsFunctionBlockParserRuleCall_4_0() { return cFbsFunctionBlockParserRuleCall_4_0; }
 		
 		//(funs+=Function)*
-		public Assignment getFunsAssignment_4() { return cFunsAssignment_4; }
+		public Assignment getFunsAssignment_5() { return cFunsAssignment_5; }
 		
 		//Function
-		public RuleCall getFunsFunctionParserRuleCall_4_0() { return cFunsFunctionParserRuleCall_4_0; }
+		public RuleCall getFunsFunctionParserRuleCall_5_0() { return cFunsFunctionParserRuleCall_5_0; }
 	}
 	public class VariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.Variable");
@@ -2231,29 +2241,31 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		private final Keyword cSemicolonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final RuleCall cSelectionStatementParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cIterationStatementParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final RuleCall cFBInvocationParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final RuleCall cInline_codeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
-		private final RuleCall cSubprogramControlStatementParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
+		private final RuleCall cFBInvocationParserRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
-		private final RuleCall cExitStatementParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
+		private final RuleCall cSubprogramControlStatementParserRuleCall_5_0 = (RuleCall)cGroup_5.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
 		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
-		private final RuleCall cProcessStatementsParserRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
+		private final RuleCall cExitStatementParserRuleCall_6_0 = (RuleCall)cGroup_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
 		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
-		private final RuleCall cSetStateStatementParserRuleCall_7_0 = (RuleCall)cGroup_7.eContents().get(0);
+		private final RuleCall cProcessStatementsParserRuleCall_7_0 = (RuleCall)cGroup_7.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
 		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
-		private final RuleCall cResetTimerStatementParserRuleCall_8_0 = (RuleCall)cGroup_8.eContents().get(0);
+		private final RuleCall cSetStateStatementParserRuleCall_8_0 = (RuleCall)cGroup_8.eContents().get(0);
 		private final Keyword cSemicolonKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
+		private final Group cGroup_9 = (Group)cAlternatives.eContents().get(9);
+		private final RuleCall cResetTimerStatementParserRuleCall_9_0 = (RuleCall)cGroup_9.eContents().get(0);
+		private final Keyword cSemicolonKeyword_9_1 = (Keyword)cGroup_9.eContents().get(1);
 		
 		//Statement:
 		//    (AssignmentStatement ';') |
 		//    SelectionStatement |
 		//    IterationStatement |
+		//    Inline_code |
 		//    (FBInvocation ';') |
 		//    (SubprogramControlStatement ';') |
 		//    (ExitStatement ';') |
@@ -2265,6 +2277,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		//(AssignmentStatement ';') |
 		//SelectionStatement |
 		//IterationStatement |
+		//Inline_code |
 		//(FBInvocation ';') |
 		//(SubprogramControlStatement ';') |
 		//(ExitStatement ';') |
@@ -2288,59 +2301,85 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		//IterationStatement
 		public RuleCall getIterationStatementParserRuleCall_2() { return cIterationStatementParserRuleCall_2; }
 		
+		//Inline_code
+		public RuleCall getInline_codeParserRuleCall_3() { return cInline_codeParserRuleCall_3; }
+		
 		//(FBInvocation ';')
-		public Group getGroup_3() { return cGroup_3; }
-		
-		//FBInvocation
-		public RuleCall getFBInvocationParserRuleCall_3_0() { return cFBInvocationParserRuleCall_3_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_3_1() { return cSemicolonKeyword_3_1; }
-		
-		//(SubprogramControlStatement ';')
 		public Group getGroup_4() { return cGroup_4; }
 		
-		//SubprogramControlStatement
-		public RuleCall getSubprogramControlStatementParserRuleCall_4_0() { return cSubprogramControlStatementParserRuleCall_4_0; }
+		//FBInvocation
+		public RuleCall getFBInvocationParserRuleCall_4_0() { return cFBInvocationParserRuleCall_4_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_4_1() { return cSemicolonKeyword_4_1; }
 		
-		//(ExitStatement ';')
+		//(SubprogramControlStatement ';')
 		public Group getGroup_5() { return cGroup_5; }
 		
-		//ExitStatement
-		public RuleCall getExitStatementParserRuleCall_5_0() { return cExitStatementParserRuleCall_5_0; }
+		//SubprogramControlStatement
+		public RuleCall getSubprogramControlStatementParserRuleCall_5_0() { return cSubprogramControlStatementParserRuleCall_5_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_5_1() { return cSemicolonKeyword_5_1; }
 		
-		//(ProcessStatements ';')
+		//(ExitStatement ';')
 		public Group getGroup_6() { return cGroup_6; }
 		
-		//ProcessStatements
-		public RuleCall getProcessStatementsParserRuleCall_6_0() { return cProcessStatementsParserRuleCall_6_0; }
+		//ExitStatement
+		public RuleCall getExitStatementParserRuleCall_6_0() { return cExitStatementParserRuleCall_6_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_6_1() { return cSemicolonKeyword_6_1; }
 		
-		//(SetStateStatement ';')
+		//(ProcessStatements ';')
 		public Group getGroup_7() { return cGroup_7; }
 		
-		//SetStateStatement
-		public RuleCall getSetStateStatementParserRuleCall_7_0() { return cSetStateStatementParserRuleCall_7_0; }
+		//ProcessStatements
+		public RuleCall getProcessStatementsParserRuleCall_7_0() { return cProcessStatementsParserRuleCall_7_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_7_1() { return cSemicolonKeyword_7_1; }
 		
-		//(ResetTimerStatement ';')
+		//(SetStateStatement ';')
 		public Group getGroup_8() { return cGroup_8; }
 		
-		//ResetTimerStatement
-		public RuleCall getResetTimerStatementParserRuleCall_8_0() { return cResetTimerStatementParserRuleCall_8_0; }
+		//SetStateStatement
+		public RuleCall getSetStateStatementParserRuleCall_8_0() { return cSetStateStatementParserRuleCall_8_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_8_1() { return cSemicolonKeyword_8_1; }
+		
+		//(ResetTimerStatement ';')
+		public Group getGroup_9() { return cGroup_9; }
+		
+		//ResetTimerStatement
+		public RuleCall getResetTimerStatementParserRuleCall_9_0() { return cResetTimerStatementParserRuleCall_9_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_9_1() { return cSemicolonKeyword_9_1; }
+	}
+	public class Inline_codeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.Inline_code");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cInline_codeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cInline_codeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cInline_codeINLINE_PHRASETerminalRuleCall_1_0 = (RuleCall)cInline_codeAssignment_1.eContents().get(0);
+		
+		//Inline_code:
+		//    {Inline_code} (inline_code += INLINE_PHRASE)+;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Inline_code} (inline_code += INLINE_PHRASE)+
+		public Group getGroup() { return cGroup; }
+		
+		//{Inline_code}
+		public Action getInline_codeAction_0() { return cInline_codeAction_0; }
+		
+		//(inline_code += INLINE_PHRASE)+
+		public Assignment getInline_codeAssignment_1() { return cInline_codeAssignment_1; }
+		
+		//INLINE_PHRASE
+		public RuleCall getInline_codeINLINE_PHRASETerminalRuleCall_1_0() { return cInline_codeINLINE_PHRASETerminalRuleCall_1_0; }
 	}
 	public class AssignmentStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.AssignmentStatement");
@@ -4386,6 +4425,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	private final PrimaryExpressionElements pPrimaryExpression;
 	private final StatementListElements pStatementList;
 	private final StatementElements pStatement;
+	private final Inline_codeElements pInline_code;
 	private final AssignmentStatementElements pAssignmentStatement;
 	private final SelectionStatementElements pSelectionStatement;
 	private final IfStatementElements pIfStatement;
@@ -4454,6 +4494,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	private final TerminalRule tDIGIT;
 	private final TerminalRule tHEX_DIGIT;
 	private final TerminalRule tID;
+	private final TerminalRule tINLINE_PHRASE;
 	private final TerminalRule tML_COMMENT;
 	private final TerminalRule tSL_COMMENT;
 	private final TerminalRule tWS;
@@ -4520,6 +4561,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		this.pPrimaryExpression = new PrimaryExpressionElements();
 		this.pStatementList = new StatementListElements();
 		this.pStatement = new StatementElements();
+		this.pInline_code = new Inline_codeElements();
 		this.pAssignmentStatement = new AssignmentStatementElements();
 		this.pSelectionStatement = new SelectionStatementElements();
 		this.pIfStatement = new IfStatementElements();
@@ -4588,6 +4630,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		this.tDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.DIGIT");
 		this.tHEX_DIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.HEX_DIGIT");
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.ID");
+		this.tINLINE_PHRASE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.INLINE_PHRASE");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.ML_COMMENT");
 		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.SL_COMMENT");
 		this.tWS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.WS");
@@ -4618,6 +4661,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 
 	
 	//Model:
+	//    (imports=Inline_code)? &
 	//    (conf=Configuration)? &
 	//    (globVars+=GlobalVarDeclaration)* &
 	//    (programs+=Program)* &
@@ -5225,6 +5269,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	//    (AssignmentStatement ';') |
 	//    SelectionStatement |
 	//    IterationStatement |
+	//    Inline_code |
 	//    (FBInvocation ';') |
 	//    (SubprogramControlStatement ';') |
 	//    (ExitStatement ';') |
@@ -5237,6 +5282,16 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	
 	public ParserRule getStatementRule() {
 		return getStatementAccess().getRule();
+	}
+	
+	//Inline_code:
+	//    {Inline_code} (inline_code += INLINE_PHRASE)+;
+	public Inline_codeElements getInline_codeAccess() {
+		return pInline_code;
+	}
+	
+	public ParserRule getInline_codeRule() {
+		return getInline_codeAccess().getRule();
 	}
 	
 	//AssignmentStatement:
@@ -5892,6 +5947,12 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	//    LETTER (LETTER | DIGIT)*;
 	public TerminalRule getIDRule() {
 		return tID;
+	}
+	
+	//terminal INLINE_PHRASE:
+	//    '$'(!'\n')* ('\n');
+	public TerminalRule getINLINE_PHRASERule() {
+		return tINLINE_PHRASE;
 	}
 	
 	//terminal ML_COMMENT:

@@ -23,6 +23,7 @@ import su.nsk.iae.post.poST.Configuration;
 import su.nsk.iae.post.poST.Function;
 import su.nsk.iae.post.poST.FunctionBlock;
 import su.nsk.iae.post.poST.GlobalVarDeclaration;
+import su.nsk.iae.post.poST.Inline_code;
 import su.nsk.iae.post.poST.Model;
 import su.nsk.iae.post.poST.PoSTPackage;
 import su.nsk.iae.post.poST.Program;
@@ -35,6 +36,7 @@ import su.nsk.iae.post.poST.Program;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link su.nsk.iae.post.poST.impl.ModelImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.impl.ModelImpl#getConf <em>Conf</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.impl.ModelImpl#getGlobVars <em>Glob Vars</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.impl.ModelImpl#getPrograms <em>Programs</em>}</li>
@@ -46,6 +48,16 @@ import su.nsk.iae.post.poST.Program;
  */
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
+  /**
+   * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImports()
+   * @generated
+   * @ordered
+   */
+  protected Inline_code imports;
+
   /**
    * The cached value of the '{@link #getConf() <em>Conf</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -115,6 +127,56 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   protected EClass eStaticClass()
   {
     return PoSTPackage.Literals.MODEL;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Inline_code getImports()
+  {
+    return imports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetImports(Inline_code newImports, NotificationChain msgs)
+  {
+    Inline_code oldImports = imports;
+    imports = newImports;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PoSTPackage.MODEL__IMPORTS, oldImports, newImports);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setImports(Inline_code newImports)
+  {
+    if (newImports != imports)
+    {
+      NotificationChain msgs = null;
+      if (imports != null)
+        msgs = ((InternalEObject)imports).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PoSTPackage.MODEL__IMPORTS, null, msgs);
+      if (newImports != null)
+        msgs = ((InternalEObject)newImports).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PoSTPackage.MODEL__IMPORTS, null, msgs);
+      msgs = basicSetImports(newImports, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PoSTPackage.MODEL__IMPORTS, newImports, newImports));
   }
 
   /**
@@ -237,6 +299,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case PoSTPackage.MODEL__IMPORTS:
+        return basicSetImports(null, msgs);
       case PoSTPackage.MODEL__CONF:
         return basicSetConf(null, msgs);
       case PoSTPackage.MODEL__GLOB_VARS:
@@ -261,6 +325,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case PoSTPackage.MODEL__IMPORTS:
+        return getImports();
       case PoSTPackage.MODEL__CONF:
         return getConf();
       case PoSTPackage.MODEL__GLOB_VARS:
@@ -286,6 +352,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case PoSTPackage.MODEL__IMPORTS:
+        setImports((Inline_code)newValue);
+        return;
       case PoSTPackage.MODEL__CONF:
         setConf((Configuration)newValue);
         return;
@@ -319,6 +388,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case PoSTPackage.MODEL__IMPORTS:
+        setImports((Inline_code)null);
+        return;
       case PoSTPackage.MODEL__CONF:
         setConf((Configuration)null);
         return;
@@ -348,6 +420,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case PoSTPackage.MODEL__IMPORTS:
+        return imports != null;
       case PoSTPackage.MODEL__CONF:
         return conf != null;
       case PoSTPackage.MODEL__GLOB_VARS:

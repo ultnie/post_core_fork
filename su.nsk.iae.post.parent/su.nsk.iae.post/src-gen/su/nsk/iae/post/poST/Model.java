@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link su.nsk.iae.post.poST.Model#getImports <em>Imports</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.Model#getConf <em>Conf</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.Model#getGlobVars <em>Glob Vars</em>}</li>
  *   <li>{@link su.nsk.iae.post.poST.Model#getPrograms <em>Programs</em>}</li>
@@ -29,6 +30,28 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Model extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Imports</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Imports</em>' containment reference.
+   * @see #setImports(Inline_code)
+   * @see su.nsk.iae.post.poST.PoSTPackage#getModel_Imports()
+   * @model containment="true"
+   * @generated
+   */
+  Inline_code getImports();
+
+  /**
+   * Sets the value of the '{@link su.nsk.iae.post.poST.Model#getImports <em>Imports</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Imports</em>' containment reference.
+   * @see #getImports()
+   * @generated
+   */
+  void setImports(Inline_code value);
+
   /**
    * Returns the value of the '<em><b>Conf</b></em>' containment reference.
    * <!-- begin-user-doc -->

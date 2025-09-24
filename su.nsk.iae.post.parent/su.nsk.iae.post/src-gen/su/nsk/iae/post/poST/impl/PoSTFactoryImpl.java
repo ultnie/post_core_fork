@@ -47,6 +47,7 @@ import su.nsk.iae.post.poST.FunctionCall;
 import su.nsk.iae.post.poST.GlobalVarDeclaration;
 import su.nsk.iae.post.poST.GlobalVarInitDeclaration;
 import su.nsk.iae.post.poST.IfStatement;
+import su.nsk.iae.post.poST.Inline_code;
 import su.nsk.iae.post.poST.InputOutputVarDeclaration;
 import su.nsk.iae.post.poST.InputVarDeclaration;
 import su.nsk.iae.post.poST.IntegerLiteral;
@@ -200,6 +201,7 @@ public class PoSTFactoryImpl extends EFactoryImpl implements PoSTFactory
       case PoSTPackage.PRIMARY_EXPRESSION: return createPrimaryExpression();
       case PoSTPackage.STATEMENT_LIST: return createStatementList();
       case PoSTPackage.STATEMENT: return createStatement();
+      case PoSTPackage.INLINE_CODE: return createInline_code();
       case PoSTPackage.ASSIGNMENT_STATEMENT: return createAssignmentStatement();
       case PoSTPackage.SELECTION_STATEMENT: return createSelectionStatement();
       case PoSTPackage.IF_STATEMENT: return createIfStatement();
@@ -815,6 +817,18 @@ public class PoSTFactoryImpl extends EFactoryImpl implements PoSTFactory
   {
     StatementImpl statement = new StatementImpl();
     return statement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Inline_code createInline_code()
+  {
+    Inline_codeImpl inline_code = new Inline_codeImpl();
+    return inline_code;
   }
 
   /**

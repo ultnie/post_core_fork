@@ -11,7 +11,12 @@ public final class EmptyFile extends AbstractFileTemplate {
   @Override
   public void generateFiles(final IFileGenerator generator) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("�folder�/�name�.post");
+    String _folder = this.getFolder();
+    _builder.append(_folder);
+    _builder.append("/");
+    String _name = this.getName();
+    _builder.append(_name);
+    _builder.append(".post");
     StringConcatenation _builder_1 = new StringConcatenation();
     generator.generate(_builder, _builder_1);
   }

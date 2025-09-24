@@ -46,6 +46,7 @@ import su.nsk.iae.post.poST.FunctionCall;
 import su.nsk.iae.post.poST.GlobalVarDeclaration;
 import su.nsk.iae.post.poST.GlobalVarInitDeclaration;
 import su.nsk.iae.post.poST.IfStatement;
+import su.nsk.iae.post.poST.Inline_code;
 import su.nsk.iae.post.poST.InputOutputVarDeclaration;
 import su.nsk.iae.post.poST.InputVarDeclaration;
 import su.nsk.iae.post.poST.IntegerLiteral;
@@ -412,6 +413,13 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   private EClass statementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass inline_codeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -828,7 +836,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
-  public EReference getModel_Conf()
+  public EReference getModel_Imports()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(0);
   }
@@ -839,7 +847,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
-  public EReference getModel_GlobVars()
+  public EReference getModel_Conf()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(1);
   }
@@ -850,7 +858,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
-  public EReference getModel_Programs()
+  public EReference getModel_GlobVars()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(2);
   }
@@ -861,7 +869,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
-  public EReference getModel_Fbs()
+  public EReference getModel_Programs()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(3);
   }
@@ -872,9 +880,20 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
-  public EReference getModel_Funs()
+  public EReference getModel_Fbs()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getModel_Funs()
+  {
+    return (EReference)modelEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2434,6 +2453,28 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
    * @generated
    */
   @Override
+  public EClass getInline_code()
+  {
+    return inline_codeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getInline_code_Inline_code()
+  {
+    return (EAttribute)inline_codeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getAssignmentStatement()
   {
     return assignmentStatementEClass;
@@ -3747,6 +3788,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
 
     // Create classes and their features
     modelEClass = createEClass(MODEL);
+    createEReference(modelEClass, MODEL__IMPORTS);
     createEReference(modelEClass, MODEL__CONF);
     createEReference(modelEClass, MODEL__GLOB_VARS);
     createEReference(modelEClass, MODEL__PROGRAMS);
@@ -3935,6 +3977,9 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
     createEReference(statementListEClass, STATEMENT_LIST__STATEMENTS);
 
     statementEClass = createEClass(STATEMENT);
+
+    inline_codeEClass = createEClass(INLINE_CODE);
+    createEAttribute(inline_codeEClass, INLINE_CODE__INLINE_CODE);
 
     assignmentStatementEClass = createEClass(ASSIGNMENT_STATEMENT);
     createEReference(assignmentStatementEClass, ASSIGNMENT_STATEMENT__VARIABLE);
@@ -4147,6 +4192,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
     powerExpressionEClass.getESuperTypes().add(this.getMulExpression());
     unaryExpressionEClass.getESuperTypes().add(this.getPowerExpression());
     primaryExpressionEClass.getESuperTypes().add(this.getUnaryExpression());
+    inline_codeEClass.getESuperTypes().add(this.getStatement());
     assignmentStatementEClass.getESuperTypes().add(this.getStatement());
     selectionStatementEClass.getESuperTypes().add(this.getStatement());
     ifStatementEClass.getESuperTypes().add(this.getSelectionStatement());
@@ -4164,6 +4210,7 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModel_Imports(), this.getInline_code(), null, "imports", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModel_Conf(), this.getConfiguration(), null, "conf", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModel_GlobVars(), this.getGlobalVarDeclaration(), null, "globVars", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModel_Programs(), this.getProgram(), null, "programs", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4352,6 +4399,9 @@ public class PoSTPackageImpl extends EPackageImpl implements PoSTPackage
     initEReference(getStatementList_Statements(), this.getStatement(), null, "statements", null, 0, -1, StatementList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(inline_codeEClass, Inline_code.class, "Inline_code", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInline_code_Inline_code(), ecorePackage.getEString(), "inline_code", null, 0, -1, Inline_code.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assignmentStatementEClass, AssignmentStatement.class, "AssignmentStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAssignmentStatement_Variable(), this.getSymbolicVariable(), null, "variable", null, 0, 1, AssignmentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

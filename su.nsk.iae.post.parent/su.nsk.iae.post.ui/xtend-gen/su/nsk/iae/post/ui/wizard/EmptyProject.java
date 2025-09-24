@@ -43,7 +43,9 @@ public final class EmptyProject extends AbstractProjectTemplate {
             Path _path = new Path(("/resources/library/" + lib));
             final InputStream libStream = FileLocator.resolve(FileLocator.find(bundle, _path, null)).openStream();
             StringConcatenation _builder = new StringConcatenation();
-            _builder.append("�PoSTProjectTemplateProvider.libFolder�/�lib�");
+            _builder.append(PoSTProjectTemplateProvider.libFolder);
+            _builder.append("/");
+            _builder.append(lib);
             this.addFile(it, _builder, Files.readStreamIntoString(libStream));
           }
         }

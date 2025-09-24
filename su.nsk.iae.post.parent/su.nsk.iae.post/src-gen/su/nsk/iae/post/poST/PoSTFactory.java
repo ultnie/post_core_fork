@@ -411,6 +411,15 @@ public interface PoSTFactory extends EFactory
   Statement createStatement();
 
   /**
+   * Returns a new object of class '<em>Inline code</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Inline code</em>'.
+   * @generated
+   */
+  Inline_code createInline_code();
+
+  /**
    * Returns a new object of class '<em>Assignment Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

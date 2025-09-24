@@ -45,6 +45,7 @@ import su.nsk.iae.post.poST.FunctionCall;
 import su.nsk.iae.post.poST.GlobalVarDeclaration;
 import su.nsk.iae.post.poST.GlobalVarInitDeclaration;
 import su.nsk.iae.post.poST.IfStatement;
+import su.nsk.iae.post.poST.Inline_code;
 import su.nsk.iae.post.poST.InputOutputVarDeclaration;
 import su.nsk.iae.post.poST.InputVarDeclaration;
 import su.nsk.iae.post.poST.IntegerLiteral;
@@ -200,6 +201,9 @@ public abstract class AbstractPoSTSemanticSequencer extends AbstractDelegatingSe
 				return; 
 			case PoSTPackage.IF_STATEMENT:
 				sequence_IfStatement(context, (IfStatement) semanticObject); 
+				return; 
+			case PoSTPackage.INLINE_CODE:
+				sequence_Inline_code(context, (Inline_code) semanticObject); 
 				return; 
 			case PoSTPackage.INPUT_OUTPUT_VAR_DECLARATION:
 				sequence_InputOutputVarDeclaration(context, (InputOutputVarDeclaration) semanticObject); 
@@ -966,6 +970,21 @@ public abstract class AbstractPoSTSemanticSequencer extends AbstractDelegatingSe
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     Statement returns Inline_code
+	 *     Inline_code returns Inline_code
+	 *
+	 * Constraint:
+	 *     inline_code+=INLINE_PHRASE+
+	 * </pre>
+	 */
+	protected void sequence_Inline_code(ISerializationContext context, Inline_code semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     InputOutputVarDeclaration returns InputOutputVarDeclaration
 	 *
 	 * Constraint:
@@ -1012,7 +1031,14 @@ public abstract class AbstractPoSTSemanticSequencer extends AbstractDelegatingSe
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     (conf=Configuration | globVars+=GlobalVarDeclaration | programs+=Program | fbs+=FunctionBlock | funs+=Function)+
+	 *     (
+	 *         imports=Inline_code | 
+	 *         conf=Configuration | 
+	 *         globVars+=GlobalVarDeclaration | 
+	 *         programs+=Program | 
+	 *         fbs+=FunctionBlock | 
+	 *         funs+=Function
+	 *     )+
 	 * </pre>
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
