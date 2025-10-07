@@ -486,7 +486,7 @@ class PoSTValidator extends AbstractPoSTValidator {
 		}
 		val process = ele.getContainerOfType(Process)
 		val state = ele.getContainerOfType(su.nsk.iae.post.poST.State)
-		if (process.states.last === state) {
+		if (process.states.get(process.states.size() - 1) === state) {
 			error("Invalid statement: No next state in the Process", ePackage.setStateStatement_Next)
 		}
 	}

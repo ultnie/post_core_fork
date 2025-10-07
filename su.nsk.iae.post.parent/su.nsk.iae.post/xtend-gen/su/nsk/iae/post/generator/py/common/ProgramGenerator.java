@@ -1,11 +1,11 @@
 package su.nsk.iae.post.generator.py.common;
 
-import com.google.common.base.Objects;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.emf.common.util.EList;
@@ -90,7 +90,7 @@ public class ProgramGenerator {
             if (_contains) {
               item = items.get(i).substring(items.get(i).indexOf(":=")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
               item = item.substring(2);
-              if (((!Objects.equal(item, "TRUE")) && (!Objects.equal(item, "FALSE")))) {
+              if (((!Objects.equals(item, "TRUE")) && (!Objects.equals(item, "FALSE")))) {
                 this.confInVars.add(item);
               }
             } else {
@@ -98,7 +98,7 @@ public class ProgramGenerator {
               if (_contains_1) {
                 item = items.get(i).substring(items.get(i).indexOf("=>")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
                 item = item.substring(2);
-                if (((!Objects.equal(item, "TRUE")) && (!Objects.equal(item, "FALSE")))) {
+                if (((!Objects.equals(item, "TRUE")) && (!Objects.equals(item, "FALSE")))) {
                   this.confOutVars.add(item);
                 }
               }
@@ -438,7 +438,7 @@ public class ProgramGenerator {
 
   public boolean isFirstProcess(final ProcessGenerator process) {
     ProcessGenerator _get = this.processList.get(0);
-    return Objects.equal(_get, process);
+    return Objects.equals(_get, process);
   }
 
   public void addInVar(final EObject varDecl) {
@@ -468,7 +468,7 @@ public class ProgramGenerator {
   public String generateProcessEnum(final String processName) {
     final Function1<ProcessGenerator, Boolean> _function = (ProcessGenerator it) -> {
       String _name = it.getName();
-      return Boolean.valueOf(Objects.equal(_name, processName));
+      return Boolean.valueOf(Objects.equals(_name, processName));
     };
     return GeneratorUtil.generateEnumName(IterableExtensions.<ProcessGenerator>findFirst(this.processList, _function));
   }
@@ -476,7 +476,7 @@ public class ProgramGenerator {
   public String generateProcessStart(final String processName) {
     final Function1<ProcessGenerator, Boolean> _function = (ProcessGenerator it) -> {
       String _name = it.getName();
-      return Boolean.valueOf(Objects.equal(_name, processName));
+      return Boolean.valueOf(Objects.equals(_name, processName));
     };
     return IterableExtensions.<ProcessGenerator>findFirst(this.processList, _function).generateStart();
   }
@@ -484,7 +484,7 @@ public class ProgramGenerator {
   public CharSequence generateProcessStop(final String processName) {
     final Function1<ProcessGenerator, Boolean> _function = (ProcessGenerator it) -> {
       String _name = it.getName();
-      return Boolean.valueOf(Objects.equal(_name, processName));
+      return Boolean.valueOf(Objects.equals(_name, processName));
     };
     return IterableExtensions.<ProcessGenerator>findFirst(this.processList, _function).generateStop();
   }
@@ -492,7 +492,7 @@ public class ProgramGenerator {
   public CharSequence generateProcessError(final String processName) {
     final Function1<ProcessGenerator, Boolean> _function = (ProcessGenerator it) -> {
       String _name = it.getName();
-      return Boolean.valueOf(Objects.equal(_name, processName));
+      return Boolean.valueOf(Objects.equals(_name, processName));
     };
     return IterableExtensions.<ProcessGenerator>findFirst(this.processList, _function).generateError();
   }

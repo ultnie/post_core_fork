@@ -1,8 +1,8 @@
 package su.nsk.iae.post.generator.py.common.vars;
 
-import com.google.common.base.Objects;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -57,7 +57,7 @@ public abstract class VarHelper {
   public boolean contains(final String name) {
     final Predicate<VarData> _function = (VarData v) -> {
       String _name = v.getName();
-      return Objects.equal(_name, name);
+      return Objects.equals(_name, name);
     };
     return this.listDecl.stream().anyMatch(_function);
   }

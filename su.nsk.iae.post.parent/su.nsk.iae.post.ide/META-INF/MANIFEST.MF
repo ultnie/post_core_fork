@@ -13,3 +13,4 @@ Require-Bundle: su.nsk.iae.post,
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: su.nsk.iae.post.ide.contentassist.antlr,
  su.nsk.iae.post.ide.contentassist.antlr.internal
+Import-Package: com.google.inject;version="[1.4.0,2.0.0)"

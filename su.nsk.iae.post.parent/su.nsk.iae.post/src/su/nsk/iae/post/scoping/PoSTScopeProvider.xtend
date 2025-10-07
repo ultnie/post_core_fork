@@ -3,7 +3,6 @@ package su.nsk.iae.post.scoping
 import java.util.Collections
 import java.util.stream.Collectors
 import java.util.stream.Stream
-import javax.inject.Inject
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -27,6 +26,7 @@ import su.nsk.iae.post.poST.TemplateProcessConfElement
 import su.nsk.iae.post.poST.VarInitDeclaration
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import jakarta.inject.Inject
 
 class PoSTScopeProvider extends AbstractPoSTScopeProvider {
 	

@@ -1,10 +1,10 @@
 package su.nsk.iae.post.generator.py;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -520,7 +520,7 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
         final String programConfName = this.capitalizeFirst(programConf.getName());
         final Predicate<ProgramGenerator> _function_3 = (ProgramGenerator x) -> {
           String _name = x.getName();
-          return Objects.equal(_name, programConfName);
+          return Objects.equals(_name, programConfName);
         };
         final ProgramGenerator programGen = this.programs.stream().filter(_function_3).findFirst().get();
         final Consumer<ProgramConfElement> _function_4 = (ProgramConfElement confElement) -> {
@@ -554,7 +554,7 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 
   public void changeAllVars(final Variable programVar, final Variable attVar, final Constant const_, final EObject root) {
     final Predicate<PrimaryExpression> _function = (PrimaryExpression v) -> {
-      return ((v.getVariable() != null) && Objects.equal(v.getVariable().getName(), programVar.getName()));
+      return ((v.getVariable() != null) && Objects.equals(v.getVariable().getName(), programVar.getName()));
     };
     final Consumer<PrimaryExpression> _function_1 = (PrimaryExpression v) -> {
       if ((attVar != null)) {
@@ -566,7 +566,7 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
     };
     EcoreUtil2.<PrimaryExpression>getAllContentsOfType(root, PrimaryExpression.class).stream().filter(_function).forEach(_function_1);
     final Predicate<AssignmentStatement> _function_2 = (AssignmentStatement v) -> {
-      return ((v.getVariable() != null) && Objects.equal(v.getVariable().getName(), programVar.getName()));
+      return ((v.getVariable() != null) && Objects.equals(v.getVariable().getName(), programVar.getName()));
     };
     final Consumer<AssignmentStatement> _function_3 = (AssignmentStatement v) -> {
       v.setVariable(((SymbolicVariable) attVar));
@@ -575,7 +575,7 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
     final Predicate<ForStatement> _function_4 = (ForStatement v) -> {
       String _name = v.getVariable().getName();
       String _name_1 = programVar.getName();
-      return Objects.equal(_name, _name_1);
+      return Objects.equals(_name, _name_1);
     };
     final Consumer<ForStatement> _function_5 = (ForStatement v) -> {
       v.setVariable(((SymbolicVariable) attVar));
@@ -584,21 +584,21 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
     final Predicate<ArrayVariable> _function_6 = (ArrayVariable v) -> {
       String _name = v.getVariable().getName();
       String _name_1 = programVar.getName();
-      return Objects.equal(_name, _name_1);
+      return Objects.equals(_name, _name_1);
     };
     final Consumer<ArrayVariable> _function_7 = (ArrayVariable v) -> {
       v.setVariable(((SymbolicVariable) attVar));
     };
     EcoreUtil2.<ArrayVariable>getAllContentsOfType(root, ArrayVariable.class).stream().filter(_function_6).forEach(_function_7);
     final Predicate<TimeoutStatement> _function_8 = (TimeoutStatement v) -> {
-      return ((v.getVariable() != null) && Objects.equal(v.getVariable().getName(), programVar.getName()));
+      return ((v.getVariable() != null) && Objects.equals(v.getVariable().getName(), programVar.getName()));
     };
     final Consumer<TimeoutStatement> _function_9 = (TimeoutStatement v) -> {
       v.setVariable(((SymbolicVariable) attVar));
     };
     EcoreUtil2.<TimeoutStatement>getAllContentsOfType(root, TimeoutStatement.class).stream().filter(_function_8).forEach(_function_9);
     final Predicate<ProcessStatements> _function_10 = (ProcessStatements v) -> {
-      return ((v.getProcess() != null) && Objects.equal(v.getProcess().getName(), programVar.getName()));
+      return ((v.getProcess() != null) && Objects.equals(v.getProcess().getName(), programVar.getName()));
     };
     final Consumer<ProcessStatements> _function_11 = (ProcessStatements v) -> {
       Variable _process = v.getProcess();
@@ -606,7 +606,7 @@ public class PyGenerator implements IDsmExecutor, IPoSTGenerator {
     };
     EcoreUtil2.<ProcessStatements>getAllContentsOfType(root, ProcessStatements.class).stream().filter(_function_10).forEach(_function_11);
     final Predicate<ProcessStatusExpression> _function_12 = (ProcessStatusExpression v) -> {
-      return ((v.getProcess() != null) && Objects.equal(v.getProcess().getName(), programVar.getName()));
+      return ((v.getProcess() != null) && Objects.equals(v.getProcess().getName(), programVar.getName()));
     };
     final Consumer<ProcessStatusExpression> _function_13 = (ProcessStatusExpression v) -> {
       Variable _process = v.getProcess();

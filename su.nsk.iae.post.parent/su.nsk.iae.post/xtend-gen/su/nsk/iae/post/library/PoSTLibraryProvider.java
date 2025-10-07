@@ -1,12 +1,12 @@
 package su.nsk.iae.post.library;
 
-import com.google.common.base.Objects;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import javax.xml.parsers.DocumentBuilder;
@@ -137,7 +137,7 @@ public class PoSTLibraryProvider {
           final InputVarDeclaration inVars = this.parseInVars(pou);
           final OutputVarDeclaration outVars = this.parseOutVars(pou);
           final InputOutputVarDeclaration inOutVars = this.parseInOutVars(pou);
-          boolean _equals = Objects.equal(pouType, PoSTLibraryProvider.functionAttributeValue);
+          boolean _equals = Objects.equals(pouType, PoSTLibraryProvider.functionAttributeValue);
           if (_equals) {
             Node _item_1 = pou.getElementsByTagName(PoSTLibraryProvider.functionReturnTypeTag).item(0);
             final String retType = ((Element) _item_1).getElementsByTagName("*").item(0).getNodeName();
@@ -149,7 +149,7 @@ public class PoSTLibraryProvider {
             ((FunctionImpl) function).eSet(PoSTPackage.FUNCTION__FUN_IN_OUT_VARS, Collections.<InputOutputVarDeclaration>singletonList(inOutVars));
             this.functions.add(function);
           } else {
-            boolean _equals_1 = Objects.equal(pouType, PoSTLibraryProvider.functionBlockAttributeValue);
+            boolean _equals_1 = Objects.equals(pouType, PoSTLibraryProvider.functionBlockAttributeValue);
             if (_equals_1) {
               final FunctionBlock fb = this.eFactory.createFunctionBlock();
               ((FunctionBlockImpl) fb).eSet(PoSTPackage.FUNCTION_BLOCK__NAME, name);

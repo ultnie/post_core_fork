@@ -1,7 +1,7 @@
 package su.nsk.iae.post.generator.py.common.util;
 
-import com.google.common.base.Objects;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -249,7 +249,7 @@ public class GeneratorUtil {
             _builder.newLineIfNotEmpty();
             {
               String _type = helper.getType();
-              boolean _equals = Objects.equal(_type, "VAR_INPUT");
+              boolean _equals = Objects.equals(_type, "VAR_INPUT");
               if (_equals) {
                 _builder.append("inVars[\'");
                 String _generateSingleDeclaration_1 = GeneratorUtil.generateSingleDeclaration(v);
@@ -260,7 +260,7 @@ public class GeneratorUtil {
                 _builder.newLineIfNotEmpty();
               } else {
                 String _type_1 = helper.getType();
-                boolean _equals_1 = Objects.equal(_type_1, "VAR_OUTPUT");
+                boolean _equals_1 = Objects.equals(_type_1, "VAR_OUTPUT");
                 if (_equals_1) {
                   _builder.append("outVars[\'");
                   String _generateSingleDeclaration_3 = GeneratorUtil.generateSingleDeclaration(v);
@@ -271,7 +271,7 @@ public class GeneratorUtil {
                   _builder.newLineIfNotEmpty();
                 } else {
                   String _type_2 = helper.getType();
-                  boolean _equals_2 = Objects.equal(_type_2, "VAR_IN_OUT");
+                  boolean _equals_2 = Objects.equals(_type_2, "VAR_IN_OUT");
                   if (_equals_2) {
                     _builder.append("inOutVars[\'");
                     String _generateSingleDeclaration_5 = GeneratorUtil.generateSingleDeclaration(v);
@@ -282,7 +282,7 @@ public class GeneratorUtil {
                     _builder.newLineIfNotEmpty();
                   } else {
                     String _type_3 = helper.getType();
-                    boolean _equals_3 = Objects.equal(_type_3, "VAR_EXTERNAL");
+                    boolean _equals_3 = Objects.equals(_type_3, "VAR_EXTERNAL");
                     if (_equals_3) {
                       _builder.append("exVars[\'");
                       String _generateSingleDeclaration_7 = GeneratorUtil.generateSingleDeclaration(v);
@@ -293,7 +293,7 @@ public class GeneratorUtil {
                       _builder.newLineIfNotEmpty();
                     } else {
                       String _type_4 = helper.getType();
-                      boolean _equals_4 = Objects.equal(_type_4, "VAR");
+                      boolean _equals_4 = Objects.equals(_type_4, "VAR");
                       if (_equals_4) {
                         _builder.append("Vars[\'");
                         String _generateSingleDeclaration_9 = GeneratorUtil.generateSingleDeclaration(v);
@@ -304,7 +304,7 @@ public class GeneratorUtil {
                         _builder.newLineIfNotEmpty();
                       } else {
                         String _type_5 = helper.getType();
-                        boolean _equals_5 = Objects.equal(_type_5, "VAR_TEMP");
+                        boolean _equals_5 = Objects.equals(_type_5, "VAR_TEMP");
                         if (_equals_5) {
                           _builder.append("tempVars[\'");
                           String _generateSingleDeclaration_11 = GeneratorUtil.generateSingleDeclaration(v);
@@ -315,7 +315,7 @@ public class GeneratorUtil {
                           _builder.newLineIfNotEmpty();
                         } else {
                           String _type_6 = helper.getType();
-                          boolean _equals_6 = Objects.equal(_type_6, "VAR_GLOBAL");
+                          boolean _equals_6 = Objects.equals(_type_6, "VAR_GLOBAL");
                           if (_equals_6) {
                             _builder.append("globVars[\'");
                             String _generateSingleDeclaration_13 = GeneratorUtil.generateSingleDeclaration(v);
@@ -398,7 +398,7 @@ public class GeneratorUtil {
   private static String generateValue(final VarData v) {
     if (((v.getValue() == null) && (v.getArraValues() == null))) {
       String _type = v.getType();
-      boolean _equals = Objects.equal(_type, "BOOL");
+      boolean _equals = Objects.equals(_type, "BOOL");
       if (_equals) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append(" ");
@@ -412,19 +412,19 @@ public class GeneratorUtil {
         _builder_1.append("= []");
         return _builder_1.toString();
       }
-      if ((((((((((Objects.equal(v.getType(), "INT") || Objects.equal(v.getType(), "SINT")) || Objects.equal(v.getType(), "DINT")) || Objects.equal(v.getType(), "LINT")) || Objects.equal(v.getType(), "UINT")) || Objects.equal(v.getType(), "USINT")) || Objects.equal(v.getType(), "UDINT")) || Objects.equal(v.getType(), "ULINT")) || Objects.equal(v.getType(), "REAL")) || Objects.equal(v.getType(), "LREAL"))) {
+      if ((((((((((Objects.equals(v.getType(), "INT") || Objects.equals(v.getType(), "SINT")) || Objects.equals(v.getType(), "DINT")) || Objects.equals(v.getType(), "LINT")) || Objects.equals(v.getType(), "UINT")) || Objects.equals(v.getType(), "USINT")) || Objects.equals(v.getType(), "UDINT")) || Objects.equals(v.getType(), "ULINT")) || Objects.equals(v.getType(), "REAL")) || Objects.equals(v.getType(), "LREAL"))) {
         return " = MuteNum(0)";
       }
-      if ((((Objects.equal(v.getType(), "BYTE") || Objects.equal(v.getType(), "WORD")) || Objects.equal(v.getType(), "DWORD")) || Objects.equal(v.getType(), "LWORD"))) {
+      if ((((Objects.equals(v.getType(), "BYTE") || Objects.equals(v.getType(), "WORD")) || Objects.equals(v.getType(), "DWORD")) || Objects.equals(v.getType(), "LWORD"))) {
         return " = MuteBytes(b\'\')";
       }
       String _type_1 = v.getType();
-      boolean _equals_1 = Objects.equal(_type_1, "TIME");
+      boolean _equals_1 = Objects.equals(_type_1, "TIME");
       if (_equals_1) {
         return " = 0";
       }
       String _type_2 = v.getType();
-      boolean _equals_2 = Objects.equal(_type_2, "HEX_INT");
+      boolean _equals_2 = Objects.equals(_type_2, "HEX_INT");
       if (_equals_2) {
         StringConcatenation _builder_2 = new StringConcatenation();
         _builder_2.append(" ");
@@ -432,7 +432,7 @@ public class GeneratorUtil {
         return _builder_2.toString();
       }
       String _type_3 = v.getType();
-      boolean _equals_3 = Objects.equal(_type_3, "OCT_INT");
+      boolean _equals_3 = Objects.equals(_type_3, "OCT_INT");
       if (_equals_3) {
         StringConcatenation _builder_3 = new StringConcatenation();
         _builder_3.append(" ");
@@ -440,7 +440,7 @@ public class GeneratorUtil {
         return _builder_3.toString();
       }
       String _type_4 = v.getType();
-      boolean _equals_4 = Objects.equal(_type_4, "BIN_INT");
+      boolean _equals_4 = Objects.equals(_type_4, "BIN_INT");
       if (_equals_4) {
         StringConcatenation _builder_4 = new StringConcatenation();
         _builder_4.append(" ");
@@ -458,7 +458,7 @@ public class GeneratorUtil {
       _builder_5.append("]");
       return _builder_5.toString();
     }
-    if ((((Objects.equal(v.getType(), "BYTE") || Objects.equal(v.getType(), "WORD")) || Objects.equal(v.getType(), "DWORD")) || Objects.equal(v.getType(), "LWORD"))) {
+    if ((((Objects.equals(v.getType(), "BYTE") || Objects.equals(v.getType(), "WORD")) || Objects.equals(v.getType(), "DWORD")) || Objects.equals(v.getType(), "LWORD"))) {
       StringConcatenation _builder_6 = new StringConcatenation();
       _builder_6.append(" ");
       _builder_6.append("= b\'");
@@ -467,7 +467,7 @@ public class GeneratorUtil {
       return _builder_6.toString();
     }
     String _type_5 = v.getType();
-    boolean _equals_5 = Objects.equal(_type_5, "HEX_INT");
+    boolean _equals_5 = Objects.equals(_type_5, "HEX_INT");
     if (_equals_5) {
       StringConcatenation _builder_7 = new StringConcatenation();
       _builder_7.append(" ");
@@ -477,7 +477,7 @@ public class GeneratorUtil {
       return _builder_7.toString();
     }
     String _type_6 = v.getType();
-    boolean _equals_6 = Objects.equal(_type_6, "OCT_INT");
+    boolean _equals_6 = Objects.equals(_type_6, "OCT_INT");
     if (_equals_6) {
       StringConcatenation _builder_8 = new StringConcatenation();
       _builder_8.append(" ");
@@ -487,7 +487,7 @@ public class GeneratorUtil {
       return _builder_8.toString();
     }
     String _type_7 = v.getType();
-    boolean _equals_7 = Objects.equal(_type_7, "BIN_INT");
+    boolean _equals_7 = Objects.equals(_type_7, "BIN_INT");
     if (_equals_7) {
       StringConcatenation _builder_9 = new StringConcatenation();
       _builder_9.append(" ");
@@ -497,10 +497,10 @@ public class GeneratorUtil {
       return _builder_9.toString();
     }
     String _type_8 = v.getType();
-    boolean _equals_8 = Objects.equal(_type_8, "BOOL");
+    boolean _equals_8 = Objects.equals(_type_8, "BOOL");
     if (_equals_8) {
       String _value_4 = v.getValue();
-      boolean _equals_9 = Objects.equal(_value_4, "TRUE");
+      boolean _equals_9 = Objects.equals(_value_4, "TRUE");
       if (_equals_9) {
         StringConcatenation _builder_10 = new StringConcatenation();
         _builder_10.append(" ");
@@ -508,7 +508,7 @@ public class GeneratorUtil {
         return _builder_10.toString();
       }
       String _value_5 = v.getValue();
-      boolean _equals_10 = Objects.equal(_value_5, "FALSE");
+      boolean _equals_10 = Objects.equals(_value_5, "FALSE");
       if (_equals_10) {
         StringConcatenation _builder_11 = new StringConcatenation();
         _builder_11.append(" ");
@@ -602,12 +602,12 @@ public class GeneratorUtil {
         StringConcatenation _builder = new StringConcatenation();
         {
           UnaryOperator _unOp = ((UnaryExpression)exp).getUnOp();
-          boolean _equals = Objects.equal(_unOp, UnaryOperator.NOT);
+          boolean _equals = Objects.equals(_unOp, UnaryOperator.NOT);
           if (_equals) {
             _builder.append("not ");
           } else {
             UnaryOperator _unOp_1 = ((UnaryExpression)exp).getUnOp();
-            boolean _equals_1 = Objects.equal(_unOp_1, UnaryOperator.UNMINUS);
+            boolean _equals_1 = Objects.equals(_unOp_1, UnaryOperator.UNMINUS);
             if (_equals_1) {
               _builder.append("-");
             }
@@ -654,7 +654,7 @@ public class GeneratorUtil {
         _builder.append(" ");
         {
           AddOperator _addOp = ((AddExpression)exp).getAddOp();
-          boolean _equals = Objects.equal(_addOp, AddOperator.PLUS);
+          boolean _equals = Objects.equals(_addOp, AddOperator.PLUS);
           if (_equals) {
             _builder.append("+");
           } else {
@@ -691,7 +691,7 @@ public class GeneratorUtil {
         _builder.append(" ");
         {
           CompOperator _compOp = ((CompExpression)exp).getCompOp();
-          boolean _equals = Objects.equal(_compOp, CompOperator.EQUAL);
+          boolean _equals = Objects.equals(_compOp, CompOperator.EQUAL);
           if (_equals) {
             _builder.append("==");
           } else {
@@ -764,7 +764,7 @@ public class GeneratorUtil {
     _builder.append(" ");
     {
       AssignmentType _assig = ele.getAssig();
-      boolean _equals = Objects.equal(_assig, AssignmentType.IN);
+      boolean _equals = Objects.equals(_assig, AssignmentType.IN);
       if (_equals) {
         _builder.append("=");
       } else {

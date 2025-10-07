@@ -32,7 +32,7 @@ class PoSTLinkingService extends DefaultLinkingService {
 	
 	private def IEObjectDescription getSingleElement(Iterable<IEObjectDescription> elements, QualifiedName name) {
 		for (e : elements) {
-			if (e.qualifiedName.segments.last == name.segments.head) {
+			if (e.qualifiedName.segments.get(e.qualifiedName.segments.size() - 1) == name.segments.head) {
 				return e
 			}
 		}

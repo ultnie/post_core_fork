@@ -17,7 +17,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
 
-@ProjectTemplate(label = "Empty Project", icon = "project_template.png", description = "<p><b>Empty poST Project</b></p>\r\n<p>Creates an empty poST project without files.</p>")
+@ProjectTemplate(label = "Empty Project", icon = "project_template.png", description = "<p><b>Empty poST Project</b></p>\n<p>Creates an empty poST project without files.</p>")
 @SuppressWarnings("all")
 public final class EmptyProject extends AbstractProjectTemplate {
   @Override

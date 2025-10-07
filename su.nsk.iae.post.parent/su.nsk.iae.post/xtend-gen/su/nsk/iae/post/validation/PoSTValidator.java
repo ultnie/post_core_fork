@@ -1,8 +1,8 @@
 package su.nsk.iae.post.validation;
 
-import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import su.nsk.iae.post.poST.ArrayInterval;
 import su.nsk.iae.post.poST.ArraySpecification;
 import su.nsk.iae.post.poST.AssignmentStatement;
@@ -275,12 +274,12 @@ public class PoSTValidator extends AbstractPoSTValidator {
 
   @Check
   public void checkAttachVariableConfElement_AttachBlockType(final AttachVariableConfElement ele) {
-    if ((Objects.equal(ele.getAssig(), AssignmentType.IN) && (!this.<InputVarDeclaration>checkContainer(ele.getProgramVar(), InputVarDeclaration.class)))) {
+    if ((Objects.equals(ele.getAssig(), AssignmentType.IN) && (!this.<InputVarDeclaration>checkContainer(ele.getProgramVar(), InputVarDeclaration.class)))) {
       this.error("Attach error: Must be a input Variable", 
         this.ePackage.getAttachVariableConfElement_ProgramVar());
       return;
     }
-    if ((Objects.equal(ele.getAssig(), AssignmentType.OUT) && (!this.<OutputVarDeclaration>checkContainer(ele.getProgramVar(), OutputVarDeclaration.class)))) {
+    if ((Objects.equals(ele.getAssig(), AssignmentType.OUT) && (!this.<OutputVarDeclaration>checkContainer(ele.getProgramVar(), OutputVarDeclaration.class)))) {
       this.error("Attach error: Must be a output Variable", 
         this.ePackage.getAttachVariableConfElement_ProgramVar());
     }
@@ -291,7 +290,7 @@ public class PoSTValidator extends AbstractPoSTValidator {
     if (((ele.getProgramVar() instanceof SymbolicVariable) && (ele.getAttVar() instanceof SymbolicVariable))) {
       String _varType = this.getVarType(ele.getProgramVar());
       String _varType_1 = this.getVarType(ele.getAttVar());
-      boolean _notEquals = (!Objects.equal(_varType, _varType_1));
+      boolean _notEquals = (!Objects.equals(_varType, _varType_1));
       if (_notEquals) {
         String _varType_2 = this.getVarType(ele.getProgramVar());
         String _plus = ("Attach error: Variable must be " + _varType_2);
@@ -431,7 +430,7 @@ public class PoSTValidator extends AbstractPoSTValidator {
       final SymbolicVariable attVar = ((SymbolicVariable) _attVar);
       String _varType = this.getVarType(programVar);
       String _varType_1 = this.getVarType(attVar);
-      boolean _notEquals = (!Objects.equal(_varType, _varType_1));
+      boolean _notEquals = (!Objects.equals(_varType, _varType_1));
       if (_notEquals) {
         String _varType_2 = this.getVarType(programVar);
         String _plus = ("Attach error: Process Variable must be " + _varType_2);
@@ -446,7 +445,7 @@ public class PoSTValidator extends AbstractPoSTValidator {
       final TemplateProcessConfElement attVar_1 = ((TemplateProcessConfElement) _attVar_1);
       String _name = EcoreUtil2.<ProcessVarInitDeclaration>getContainerOfType(programVar_1, ProcessVarInitDeclaration.class).getProcess().getName();
       String _name_1 = attVar_1.getProcess().getName();
-      boolean _notEquals_1 = (!Objects.equal(_name, _name_1));
+      boolean _notEquals_1 = (!Objects.equals(_name, _name_1));
       if (_notEquals_1) {
         String _name_2 = attVar_1.getProcess().getName();
         String _plus_1 = ("Attach error: Process Variable must be " + _name_2);
@@ -660,8 +659,11 @@ public class PoSTValidator extends AbstractPoSTValidator {
     }
     final su.nsk.iae.post.poST.Process process = EcoreUtil2.<su.nsk.iae.post.poST.Process>getContainerOfType(ele, su.nsk.iae.post.poST.Process.class);
     final su.nsk.iae.post.poST.State state = EcoreUtil2.<su.nsk.iae.post.poST.State>getContainerOfType(ele, su.nsk.iae.post.poST.State.class);
-    su.nsk.iae.post.poST.State _last = IterableExtensions.<su.nsk.iae.post.poST.State>last(process.getStates());
-    boolean _tripleEquals = (_last == state);
+    EList<su.nsk.iae.post.poST.State> _states = process.getStates();
+    int _size = process.getStates().size();
+    int _minus = (_size - 1);
+    su.nsk.iae.post.poST.State _get = _states.get(_minus);
+    boolean _tripleEquals = (_get == state);
     if (_tripleEquals) {
       this.error("Invalid statement: No next state in the Process", this.ePackage.getSetStateStatement_Next());
     }

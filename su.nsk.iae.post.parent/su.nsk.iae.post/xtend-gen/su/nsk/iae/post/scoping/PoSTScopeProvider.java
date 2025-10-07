@@ -1,12 +1,12 @@
 package su.nsk.iae.post.scoping;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
+import jakarta.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -55,24 +55,24 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
   public IScope getScope(final EObject context, final EReference reference) {
     boolean _matched = false;
     EReference _primaryExpression_Variable = this.ePackage.getPrimaryExpression_Variable();
-    if (Objects.equal(reference, _primaryExpression_Variable)) {
+    if (Objects.equals(reference, _primaryExpression_Variable)) {
       _matched=true;
     }
     if (!_matched) {
       EReference _assignmentStatement_Variable = this.ePackage.getAssignmentStatement_Variable();
-      if (Objects.equal(reference, _assignmentStatement_Variable)) {
+      if (Objects.equals(reference, _assignmentStatement_Variable)) {
         _matched=true;
       }
     }
     if (!_matched) {
       EReference _arrayVariable_Variable = this.ePackage.getArrayVariable_Variable();
-      if (Objects.equal(reference, _arrayVariable_Variable)) {
+      if (Objects.equals(reference, _arrayVariable_Variable)) {
         _matched=true;
       }
     }
     if (!_matched) {
       EReference _forStatement_Variable = this.ePackage.getForStatement_Variable();
-      if (Objects.equal(reference, _forStatement_Variable)) {
+      if (Objects.equals(reference, _forStatement_Variable)) {
         _matched=true;
       }
     }
@@ -81,54 +81,54 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     }
     if (!_matched) {
       EReference _functionCall_Function = this.ePackage.getFunctionCall_Function();
-      if (Objects.equal(reference, _functionCall_Function)) {
+      if (Objects.equals(reference, _functionCall_Function)) {
         _matched=true;
         return this.scopeForFunctionCall_Function(context);
       }
     }
     if (!_matched) {
       EReference _varInitDeclaration_Fb = this.ePackage.getVarInitDeclaration_Fb();
-      if (Objects.equal(reference, _varInitDeclaration_Fb)) {
+      if (Objects.equals(reference, _varInitDeclaration_Fb)) {
         _matched=true;
         return this.scopeForVarInitDeclaration_Fb(context);
       }
     }
     if (!_matched) {
       EReference _paramAssignment_Variable = this.ePackage.getParamAssignment_Variable();
-      if (Objects.equal(reference, _paramAssignment_Variable)) {
+      if (Objects.equals(reference, _paramAssignment_Variable)) {
         _matched=true;
         return this.scopeForParamAssignment_Variable(context);
       }
     }
     if (!_matched) {
       EReference _attachVariableConfElement_ProgramVar = this.ePackage.getAttachVariableConfElement_ProgramVar();
-      if (Objects.equal(reference, _attachVariableConfElement_ProgramVar)) {
+      if (Objects.equals(reference, _attachVariableConfElement_ProgramVar)) {
         _matched=true;
         return this.scopeForAttachVariableConfElement_ProgramVar(context);
       }
     }
     if (!_matched) {
       EReference _templateProcessAttachVariableConfElement_ProgramVar = this.ePackage.getTemplateProcessAttachVariableConfElement_ProgramVar();
-      if (Objects.equal(reference, _templateProcessAttachVariableConfElement_ProgramVar)) {
+      if (Objects.equals(reference, _templateProcessAttachVariableConfElement_ProgramVar)) {
         _matched=true;
         return this.scopeForTemplateProcessAttachVariableConfElement_ProgramVar(context);
       }
     }
     if (!_matched) {
       EReference _templateProcessConfElement_Process = this.ePackage.getTemplateProcessConfElement_Process();
-      if (Objects.equal(reference, _templateProcessConfElement_Process)) {
+      if (Objects.equals(reference, _templateProcessConfElement_Process)) {
         _matched=true;
         return this.scopeForTemplateProcessConfElement_Process(context);
       }
     }
     if (!_matched) {
       EReference _processStatements_Process = this.ePackage.getProcessStatements_Process();
-      if (Objects.equal(reference, _processStatements_Process)) {
+      if (Objects.equals(reference, _processStatements_Process)) {
         _matched=true;
       }
       if (!_matched) {
         EReference _processStatusExpression_Process = this.ePackage.getProcessStatusExpression_Process();
-        if (Objects.equal(reference, _processStatusExpression_Process)) {
+        if (Objects.equals(reference, _processStatusExpression_Process)) {
           _matched=true;
         }
       }
@@ -138,14 +138,14 @@ public class PoSTScopeProvider extends AbstractPoSTScopeProvider {
     }
     if (!_matched) {
       EReference _setStateStatement_State = this.ePackage.getSetStateStatement_State();
-      if (Objects.equal(reference, _setStateStatement_State)) {
+      if (Objects.equals(reference, _setStateStatement_State)) {
         _matched=true;
         return this.scopeForSetStateStatement_State(context);
       }
     }
     if (!_matched) {
       EReference _programConfiguration_Task = this.ePackage.getProgramConfiguration_Task();
-      if (Objects.equal(reference, _programConfiguration_Task)) {
+      if (Objects.equals(reference, _programConfiguration_Task)) {
         _matched=true;
         return this.scopeForProgramConfiguration_Task(context);
       }

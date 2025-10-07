@@ -17,7 +17,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
 
-@ProjectTemplate(label = "Template Project", icon = "project_template.png", description = "<p><b>Template poST Project</b></p>\r\n<p>Creates a poST project with process-oriented template.</p>")
+@ProjectTemplate(label = "Template Project", icon = "project_template.png", description = "<p><b>Template poST Project</b></p>\n<p>Creates a poST project with process-oriented template.</p>")
 @SuppressWarnings("all")
 public final class EmptyTemplateProject extends AbstractProjectTemplate {
   @Override

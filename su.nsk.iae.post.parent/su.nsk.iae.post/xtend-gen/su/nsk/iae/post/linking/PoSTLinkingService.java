@@ -1,8 +1,8 @@
 package su.nsk.iae.post.linking;
 
-import com.google.common.base.Objects;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -38,9 +38,12 @@ public class PoSTLinkingService extends DefaultLinkingService {
 
   private IEObjectDescription getSingleElement(final Iterable<IEObjectDescription> elements, final QualifiedName name) {
     for (final IEObjectDescription e : elements) {
-      String _last = IterableExtensions.<String>last(e.getQualifiedName().getSegments());
+      List<String> _segments = e.getQualifiedName().getSegments();
+      int _size = e.getQualifiedName().getSegments().size();
+      int _minus = (_size - 1);
+      String _get = _segments.get(_minus);
       String _head = IterableExtensions.<String>head(name.getSegments());
-      boolean _equals = Objects.equal(_last, _head);
+      boolean _equals = Objects.equals(_get, _head);
       if (_equals) {
         return e;
       }

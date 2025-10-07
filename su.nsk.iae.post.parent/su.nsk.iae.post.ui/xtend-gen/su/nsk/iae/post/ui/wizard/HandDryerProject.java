@@ -17,7 +17,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osgi.framework.Bundle;
 
-@ProjectTemplate(label = "Hand Dryer Project", icon = "project_template.png", description = "<p><b>Hand Dryer poST Project</b></p>\r\n<p>Creates a poST project with Hand Dryer program.</p>")
+@ProjectTemplate(label = "Hand Dryer Project", icon = "project_template.png", description = "<p><b>Hand Dryer poST Project</b></p>\n<p>Creates a poST project with Hand Dryer program.</p>")
 @SuppressWarnings("all")
 public final class HandDryerProject extends AbstractProjectTemplate {
   @Override

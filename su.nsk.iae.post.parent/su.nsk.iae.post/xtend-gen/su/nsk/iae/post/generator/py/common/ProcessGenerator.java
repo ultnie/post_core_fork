@@ -1,8 +1,8 @@
 package su.nsk.iae.post.generator.py.common;
 
-import com.google.common.base.Objects;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -199,7 +199,7 @@ public class ProcessGenerator {
     {
       final Function1<StateGenerator, Boolean> _function = (StateGenerator it) -> {
         String _name = it.getName();
-        return Boolean.valueOf(Objects.equal(_name, stateName));
+        return Boolean.valueOf(Objects.equals(_name, stateName));
       };
       boolean _hasTimeout = IterableExtensions.<StateGenerator>findFirst(this.stateList, _function).hasTimeout();
       if (_hasTimeout) {
