@@ -20,12 +20,12 @@ import su.nsk.iae.post.services.PoSTGrammarAccess;
 public abstract class AbstractPoSTSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected PoSTGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_TimeLiteral_HyphenMinusKeyword_2_q;
+	protected AbstractElementAlias match_TimeLiteral_HyphenMinusKeyword_1_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (PoSTGrammarAccess) access;
-		match_TimeLiteral_HyphenMinusKeyword_2_q = new TokenAlias(false, true, grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_2());
+		match_TimeLiteral_HyphenMinusKeyword_1_q = new TokenAlias(false, true, grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_1());
 	}
 	
 	@Override
@@ -111,12 +111,12 @@ public abstract class AbstractPoSTSyntacticSequencer extends AbstractSyntacticSe
 	
 	/**
 	 * terminal TIME_PREF_LITERAL:
-	 * 	'T';
+	 * 	'T#';
 	 */
 	protected String getTIME_PREF_LITERALToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "T";
+		return "T#";
 	}
 	
 	/**
@@ -135,8 +135,8 @@ public abstract class AbstractPoSTSyntacticSequencer extends AbstractSyntacticSe
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_TimeLiteral_HyphenMinusKeyword_2_q.equals(syntax))
-				emit_TimeLiteral_HyphenMinusKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_TimeLiteral_HyphenMinusKeyword_1_q.equals(syntax))
+				emit_TimeLiteral_HyphenMinusKeyword_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -147,11 +147,11 @@ public abstract class AbstractPoSTSyntacticSequencer extends AbstractSyntacticSe
 	 *     '-'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) TIME_PREF_LITERAL '#' (ambiguity) interval=INTERVAL
+	 *     (rule start) TIME_PREF_LITERAL (ambiguity) interval=INTERVAL
 	 
 	 * </pre>
 	 */
-	protected void emit_TimeLiteral_HyphenMinusKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_TimeLiteral_HyphenMinusKeyword_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

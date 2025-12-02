@@ -6197,21 +6197,17 @@ ruleTimeLiteral returns [EObject current=null]
 		{
 			newLeafNode(this_TIME_PREF_LITERAL_0, grammarAccess.getTimeLiteralAccess().getTIME_PREF_LITERALTerminalRuleCall_0());
 		}
-		otherlv_1='#'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getTimeLiteralAccess().getNumberSignKeyword_1());
-		}
 		(
-			otherlv_2='-'
+			otherlv_1='-'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_2());
+				newLeafNode(otherlv_1, grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_1());
 			}
 		)?
 		(
 			(
-				lv_interval_3_0=RULE_INTERVAL
+				lv_interval_2_0=RULE_INTERVAL
 				{
-					newLeafNode(lv_interval_3_0, grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_3_0());
+					newLeafNode(lv_interval_2_0, grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -6220,7 +6216,7 @@ ruleTimeLiteral returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"interval",
-						lv_interval_3_0,
+						lv_interval_2_0,
 						"su.nsk.iae.post.PoST.INTERVAL");
 				}
 			)
@@ -6901,7 +6897,7 @@ RULE_AND_OPERATOR : ('&'|'AND');
 
 RULE_POWER_OPERATOR : '**';
 
-RULE_TIME_PREF_LITERAL : 'T';
+RULE_TIME_PREF_LITERAL : 'T#';
 
 RULE_INTERVAL : (RULE_INTEGER 'd')? (RULE_INTEGER 'h')? (RULE_INTEGER 'm')? (RULE_INTEGER 's')? (RULE_INTEGER 'ms')?;
 

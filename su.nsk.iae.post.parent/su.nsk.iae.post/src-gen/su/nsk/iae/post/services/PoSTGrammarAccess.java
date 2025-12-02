@@ -3892,34 +3892,30 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.TimeLiteral");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cTIME_PREF_LITERALTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cHyphenMinusKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cIntervalAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cIntervalINTERVALTerminalRuleCall_3_0 = (RuleCall)cIntervalAssignment_3.eContents().get(0);
+		private final Keyword cHyphenMinusKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cIntervalAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cIntervalINTERVALTerminalRuleCall_2_0 = (RuleCall)cIntervalAssignment_2.eContents().get(0);
 		
 		///* ======================= END Array ======================= */
 		///* ======================= START Time Literals ======================= */
 		//TimeLiteral:
-		//     TIME_PREF_LITERAL '#' '-'? interval=INTERVAL;
+		//     TIME_PREF_LITERAL '-'? interval=INTERVAL;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TIME_PREF_LITERAL '#' '-'? interval=INTERVAL
+		//TIME_PREF_LITERAL '-'? interval=INTERVAL
 		public Group getGroup() { return cGroup; }
 		
 		//TIME_PREF_LITERAL
 		public RuleCall getTIME_PREF_LITERALTerminalRuleCall_0() { return cTIME_PREF_LITERALTerminalRuleCall_0; }
 		
-		//'#'
-		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
-		
 		//'-'?
-		public Keyword getHyphenMinusKeyword_2() { return cHyphenMinusKeyword_2; }
+		public Keyword getHyphenMinusKeyword_1() { return cHyphenMinusKeyword_1; }
 		
 		//interval=INTERVAL
-		public Assignment getIntervalAssignment_3() { return cIntervalAssignment_3; }
+		public Assignment getIntervalAssignment_2() { return cIntervalAssignment_2; }
 		
 		//INTERVAL
-		public RuleCall getIntervalINTERVALTerminalRuleCall_3_0() { return cIntervalINTERVALTerminalRuleCall_3_0; }
+		public RuleCall getIntervalINTERVALTerminalRuleCall_2_0() { return cIntervalINTERVALTerminalRuleCall_2_0; }
 	}
 	public class DataTypeNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "su.nsk.iae.post.PoST.DataTypeName");
@@ -5709,7 +5705,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	///* ======================= END Array ======================= */
 	///* ======================= START Time Literals ======================= */
 	//TimeLiteral:
-	//     TIME_PREF_LITERAL '#' '-'? interval=INTERVAL;
+	//     TIME_PREF_LITERAL '-'? interval=INTERVAL;
 	public TimeLiteralElements getTimeLiteralAccess() {
 		return pTimeLiteral;
 	}
@@ -5719,7 +5715,7 @@ public class PoSTGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	}
 	
 	//terminal TIME_PREF_LITERAL:
-	//    'T';
+	//    'T#';
 	public TerminalRule getTIME_PREF_LITERALRule() {
 		return tTIME_PREF_LITERAL;
 	}

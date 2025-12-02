@@ -381,7 +381,7 @@ public class PoSTParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getArrayIntervalAccess().getEndAssignment_2(), "rule__ArrayInterval__EndAssignment_2");
 			builder.put(grammarAccess.getArrayInitializationAccess().getElementsAssignment_1(), "rule__ArrayInitialization__ElementsAssignment_1");
 			builder.put(grammarAccess.getArrayInitializationAccess().getElementsAssignment_2_1(), "rule__ArrayInitialization__ElementsAssignment_2_1");
-			builder.put(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_3(), "rule__TimeLiteral__IntervalAssignment_3");
+			builder.put(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_2(), "rule__TimeLiteral__IntervalAssignment_2");
 			builder.put(grammarAccess.getConstantAccess().getNumAssignment_0(), "rule__Constant__NumAssignment_0");
 			builder.put(grammarAccess.getConstantAccess().getTimeAssignment_1(), "rule__Constant__TimeAssignment_1");
 			builder.put(grammarAccess.getConstantAccess().getOthAssignment_2(), "rule__Constant__OthAssignment_2");

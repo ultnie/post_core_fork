@@ -13371,9 +13371,9 @@ rule__TimeLiteral__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getTimeLiteralAccess().getNumberSignKeyword_1()); }
-	'#'
-	{ after(grammarAccess.getTimeLiteralAccess().getNumberSignKeyword_1()); }
+	{ before(grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_1()); }
+	('-')?
+	{ after(grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_1()); }
 )
 ;
 finally {
@@ -13386,7 +13386,6 @@ rule__TimeLiteral__Group__2
 	}
 :
 	rule__TimeLiteral__Group__2__Impl
-	rule__TimeLiteral__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -13398,35 +13397,9 @@ rule__TimeLiteral__Group__2__Impl
 	}
 :
 (
-	{ before(grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_2()); }
-	('-')?
-	{ after(grammarAccess.getTimeLiteralAccess().getHyphenMinusKeyword_2()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__TimeLiteral__Group__3
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__TimeLiteral__Group__3__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__TimeLiteral__Group__3__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_3()); }
-	(rule__TimeLiteral__IntervalAssignment_3)
-	{ after(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_3()); }
+	{ before(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_2()); }
+	(rule__TimeLiteral__IntervalAssignment_2)
+	{ after(grammarAccess.getTimeLiteralAccess().getIntervalAssignment_2()); }
 )
 ;
 finally {
@@ -16887,15 +16860,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__TimeLiteral__IntervalAssignment_3
+rule__TimeLiteral__IntervalAssignment_2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_3_0()); }
+		{ before(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_2_0()); }
 		RULE_INTERVAL
-		{ after(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_3_0()); }
+		{ after(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_2_0()); }
 	)
 ;
 finally {
@@ -17074,7 +17047,7 @@ RULE_AND_OPERATOR : ('&'|'AND');
 
 RULE_POWER_OPERATOR : '**';
 
-RULE_TIME_PREF_LITERAL : 'T';
+RULE_TIME_PREF_LITERAL : 'T#';
 
 RULE_INTERVAL : (RULE_INTEGER 'd')? (RULE_INTEGER 'h')? (RULE_INTEGER 'm')? (RULE_INTEGER 's')? (RULE_INTEGER 'ms')?;
 

@@ -1712,7 +1712,7 @@ public abstract class AbstractPoSTSemanticSequencer extends AbstractDelegatingSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, PoSTPackage.Literals.TIME_LITERAL__INTERVAL));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_3_0(), semanticObject.getInterval());
+		feeder.accept(grammarAccess.getTimeLiteralAccess().getIntervalINTERVALTerminalRuleCall_2_0(), semanticObject.getInterval());
 		feeder.finish();
 	}
 	
