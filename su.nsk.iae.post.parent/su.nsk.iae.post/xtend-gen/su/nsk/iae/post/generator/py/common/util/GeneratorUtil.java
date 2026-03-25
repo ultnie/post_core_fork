@@ -58,6 +58,18 @@ public class GeneratorUtil {
     return _builder.toString();
   }
 
+  public static String generatePrevGlobalTime() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("_prev_global_time");
+    return _builder.toString();
+  }
+
+  public static String generatedT() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("_dT");
+    return _builder.toString();
+  }
+
   public static String generateVarName(final String process, final String variable) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("_p_");

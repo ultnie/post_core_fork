@@ -112,7 +112,7 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 		import time
 		import enum
 		from MuteTypes import MuteBool, MuteNum, MuteStr, MuteBytes, get_value
-		from datetime import timedelta
+
 		
 		
 		inVars = {}
@@ -132,6 +132,7 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 			«configuration.generateConfiguration»
 		«ENDIF»
 		*/»
+		_prev_global_time = None
 		
 		def setVariable (name, value):
 			try:
@@ -175,7 +176,10 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 	private def String generateEmptyTemplate() 
 	'''
 	_global_time = 0
+	_prev_global_time = None
+	_dT = 0
 	Vars['_global_time'] = _global_time
+	Vars['_prev_global_time'] = _prev_global_time
 		
 	taskTime = 0
 	
@@ -213,6 +217,15 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 			except:
 				Vars[name] = value
 	
+	def getTimeDelta():
+		global _global_time
+		global _prev_global_time
+		
+		if _prev_global_time is not None:
+			return _global_time - _prev_global_time
+		else:
+			return 0
+	
 	def start(p):
 		global Vars
 		p.curState = p.States(1)
@@ -247,6 +260,8 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 		def run_iter(self):
 			global _global_time
 			Vars['_global_time'] = _global_time
+			Vars['_prev_global_time'] = _prev_global_time
+			_prev_global_time = _global_time
 
 
 	def getVariable(name):

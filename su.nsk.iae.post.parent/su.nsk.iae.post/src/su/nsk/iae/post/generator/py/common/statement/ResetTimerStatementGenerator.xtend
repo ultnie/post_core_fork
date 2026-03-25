@@ -20,7 +20,8 @@ class ResetTimerStatementGenerator extends IStatementGenerator {
 	}
 	
 	override generateStatement(Statement statement) {
-		return '''setVariable('«process.generateTimeoutName»', «generateGlobalTime»)'''
+		return '''
+		setVariable('«process.generateTimeoutName»', «generateGlobalTime»)'''
 	}
 	
 }

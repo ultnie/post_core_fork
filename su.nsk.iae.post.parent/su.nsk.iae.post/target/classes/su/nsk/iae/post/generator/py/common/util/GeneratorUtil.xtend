@@ -46,6 +46,14 @@ class GeneratorUtil {
 		return '''_global_time'''
 	}
 	
+	static def String generatePrevGlobalTime() {
+		return '''_prev_global_time'''
+	}
+	
+	static def String generatedT() {
+		return '''_dT'''
+	}
+	
 	static def String generateVarName(String process, String variable) {
 		return '''_p_«process»_v_«variable»'''
 	}

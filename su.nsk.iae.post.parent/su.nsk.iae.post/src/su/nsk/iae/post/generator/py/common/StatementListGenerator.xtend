@@ -27,6 +27,7 @@ import su.nsk.iae.post.poST.SymbolicVariable
 
 import static extension su.nsk.iae.post.generator.py.common.util.GeneratorUtil.*
 import su.nsk.iae.post.generator.py.common.statement.InlineStatementGenerator
+import su.nsk.iae.post.generator.py.common.statement.TimeDeltaStatementGenerator
 
 class StatementListGenerator {
 	
@@ -101,6 +102,7 @@ class StatementListGenerator {
 			new ErrorProcessStatementGenerator(program, process, state, this),
 			new SetStateStatementGenerator(program, process, state, this),
 			new ResetTimerStatementGenerator(program, process, state, this),
+			new TimeDeltaStatementGenerator(program, process, state, this),
 			new SubprogramControlStatementGenerator(program, process, state, this),
 			new ExitStatementGenerator(program, process, state, this),
 			new InlineStatementGenerator(program, process, state, this)

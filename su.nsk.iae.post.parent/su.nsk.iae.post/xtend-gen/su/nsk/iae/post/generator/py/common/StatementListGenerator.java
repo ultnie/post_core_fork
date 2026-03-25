@@ -20,6 +20,7 @@ import su.nsk.iae.post.generator.py.common.statement.SetStateStatementGenerator;
 import su.nsk.iae.post.generator.py.common.statement.StartProcessStatementGenerator;
 import su.nsk.iae.post.generator.py.common.statement.StopProcessStatementGenerator;
 import su.nsk.iae.post.generator.py.common.statement.SubprogramControlStatementGenerator;
+import su.nsk.iae.post.generator.py.common.statement.TimeDeltaStatementGenerator;
 import su.nsk.iae.post.generator.py.common.statement.WhileStatementGenerator;
 import su.nsk.iae.post.generator.py.common.util.GeneratorUtil;
 import su.nsk.iae.post.poST.ArrayVariable;
@@ -185,9 +186,10 @@ public class StatementListGenerator {
     ErrorProcessStatementGenerator _errorProcessStatementGenerator = new ErrorProcessStatementGenerator(this.program, this.process, this.state, this);
     SetStateStatementGenerator _setStateStatementGenerator = new SetStateStatementGenerator(this.program, this.process, this.state, this);
     ResetTimerStatementGenerator _resetTimerStatementGenerator = new ResetTimerStatementGenerator(this.program, this.process, this.state, this);
+    TimeDeltaStatementGenerator _timeDeltaStatementGenerator = new TimeDeltaStatementGenerator(this.program, this.process, this.state, this);
     SubprogramControlStatementGenerator _subprogramControlStatementGenerator = new SubprogramControlStatementGenerator(this.program, this.process, this.state, this);
     ExitStatementGenerator _exitStatementGenerator = new ExitStatementGenerator(this.program, this.process, this.state, this);
     InlineStatementGenerator _inlineStatementGenerator = new InlineStatementGenerator(this.program, this.process, this.state, this);
-    return Arrays.<IStatementGenerator>asList(_assignmentStatementGenerator, _ifStatementGenerator, _caseStatementGenerator, _forStatementGenerator, _whileStatementGenerator, _repeatStatementGenerator, _fBInvocationGenerator, _startProcessStatementGenerator, _stopProcessStatementGenerator, _errorProcessStatementGenerator, _setStateStatementGenerator, _resetTimerStatementGenerator, _subprogramControlStatementGenerator, _exitStatementGenerator, _inlineStatementGenerator);
+    return Arrays.<IStatementGenerator>asList(_assignmentStatementGenerator, _ifStatementGenerator, _caseStatementGenerator, _forStatementGenerator, _whileStatementGenerator, _repeatStatementGenerator, _fBInvocationGenerator, _startProcessStatementGenerator, _stopProcessStatementGenerator, _errorProcessStatementGenerator, _setStateStatementGenerator, _resetTimerStatementGenerator, _timeDeltaStatementGenerator, _subprogramControlStatementGenerator, _exitStatementGenerator, _inlineStatementGenerator);
   }
 }

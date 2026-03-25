@@ -115,6 +115,14 @@ class ProgramGenerator {
 	
 	processesDict = {}
 	
+	def getTimeDelta():
+		global _global_time
+		global _prev_global_time
+		
+		if _prev_global_time is not None:
+			return _global_time - _prev_global_time
+		else:
+			return 0
 	
 	def start(p):
 		global Vars
@@ -162,9 +170,17 @@ class ProgramGenerator {
 		
 		def run_iter(self):
 			global _global_time
+			global _prev_global_time
+			global _dT
+			
 			Vars['_global_time'] = _global_time
+			_dT = getTimeDelta()
+			Vars['_dT'] = _dT
+			
 			for process in self.processes:
 				process.run()
+			Vars['_prev_global_time'] = _prev_global_time
+			_prev_global_time = _global_time
 	
 	
 	def getVariable(name):
@@ -191,6 +207,8 @@ class ProgramGenerator {
 	def prepareProgramVars() {
 		processList.stream.forEach([x | x.prepareProcessVars])
 		addVar(generateGlobalTime, "TIME")
+		addVar(generatePrevGlobalTime, "TIME")
+		addVar(generatedT, "TIME")
 		processList.stream.forEach([x | x.prepareTimeVars])
 	}
 	
