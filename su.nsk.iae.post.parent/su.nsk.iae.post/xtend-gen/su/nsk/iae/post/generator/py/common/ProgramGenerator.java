@@ -58,64 +58,66 @@ public class ProgramGenerator {
   }
 
   public String generateProgram(final ConfigurationGenerator configuration, final URI source) {
-    this.prepareConfVars(source.devicePath());
+    ArrayList<String> _arrayList = new ArrayList<String>();
+    this.confInVars = _arrayList;
+    ArrayList<String> _arrayList_1 = new ArrayList<String>();
+    this.confOutVars = _arrayList_1;
+    if ((this.templateProcess && (configuration != null))) {
+      this.prepareConfVars(source.toFileString());
+    }
     this.prepareProgramVars();
     return this.generateBody(configuration);
   }
 
-  public Object prepareConfVars(final String path) {
+  public void prepareConfVars(final String path) {
     try {
-      Object _xblockexpression = null;
-      {
-        int i = ((int) 0);
-        String fileString = "";
-        String programString = "";
-        String item = "";
-        FileInputStream inputStream = null;
-        List<String> items = null;
-        Object _xtrycatchfinallyexpression = null;
-        try {
-          ArrayList<String> _arrayList = new ArrayList<String>();
-          this.confInVars = _arrayList;
-          ArrayList<String> _arrayList_1 = new ArrayList<String>();
-          this.confOutVars = _arrayList_1;
-          FileInputStream _fileInputStream = new FileInputStream(path);
-          inputStream = _fileInputStream;
-          fileString = IOUtils.toString(inputStream);
-          programString = fileString.substring(fileString.indexOf("PROGRAM"), fileString.indexOf("END_CONFIGURATION"));
-          programString = programString.substring(programString.indexOf("PROCESS"));
-          items = Arrays.<String>asList(programString.split(","));
-          for (i = 0; (i < items.size()); i++) {
-            boolean _contains = items.get(i).contains(":=");
-            if (_contains) {
-              item = items.get(i).substring(items.get(i).indexOf(":=")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
+      int i = ((int) 0);
+      String fileString = "";
+      String programString = "";
+      String item = "";
+      FileInputStream inputStream = null;
+      List<String> items = null;
+      try {
+        ArrayList<String> _arrayList = new ArrayList<String>();
+        this.confInVars = _arrayList;
+        ArrayList<String> _arrayList_1 = new ArrayList<String>();
+        this.confOutVars = _arrayList_1;
+        FileInputStream _fileInputStream = new FileInputStream(path);
+        inputStream = _fileInputStream;
+        fileString = IOUtils.toString(inputStream);
+        programString = fileString.substring(fileString.indexOf("PROGRAM"), fileString.indexOf("END_CONFIGURATION"));
+        programString = programString.substring(programString.indexOf("PROCESS"));
+        items = Arrays.<String>asList(programString.split(","));
+        for (i = 0; (i < items.size()); i++) {
+          boolean _contains = items.get(i).contains(":=");
+          if (_contains) {
+            item = items.get(i).substring(items.get(i).indexOf(":=")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
+            item = item.substring(2);
+            if (((!Objects.equals(item, "TRUE")) && (!Objects.equals(item, "FALSE")))) {
+              this.confInVars.add(item);
+            }
+          } else {
+            boolean _contains_1 = items.get(i).contains("=>");
+            if (_contains_1) {
+              item = items.get(i).substring(items.get(i).indexOf("=>")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
               item = item.substring(2);
               if (((!Objects.equals(item, "TRUE")) && (!Objects.equals(item, "FALSE")))) {
-                this.confInVars.add(item);
-              }
-            } else {
-              boolean _contains_1 = items.get(i).contains("=>");
-              if (_contains_1) {
-                item = items.get(i).substring(items.get(i).indexOf("=>")).replace(")", "").replace(" ", "").replaceAll("\\s.*", "");
-                item = item.substring(2);
-                if (((!Objects.equals(item, "TRUE")) && (!Objects.equals(item, "FALSE")))) {
-                  this.confOutVars.add(item);
-                }
+                this.confOutVars.add(item);
               }
             }
           }
-        } catch (final Throwable _t) {
-          if (_t instanceof Exception) {
-            _xtrycatchfinallyexpression = null;
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        } finally {
-          inputStream.close();
         }
-        _xblockexpression = _xtrycatchfinallyexpression;
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          System.err.println(("prepareConfVars failed for path: " + path));
+          e.printStackTrace();
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      } finally {
+        inputStream.close();
       }
-      return _xblockexpression;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -377,10 +379,7 @@ public class ProgramGenerator {
     _builder.append("Vars[\'_global_time\'] = _global_time");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("_dT = getTimeDelta()");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("Vars[\'_dT\'] = _dT");
+    _builder.append("setVariable(\'_dT\', getTimeDelta())");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.newLine();
@@ -391,10 +390,10 @@ public class ProgramGenerator {
     _builder.append("process.run()");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("Vars[\'_prev_global_time\'] = _prev_global_time");
+    _builder.append("_prev_global_time = _global_time");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("_prev_global_time = _global_time");
+    _builder.append("Vars[\'_prev_global_time\'] = _prev_global_time");
     _builder.newLine();
     _builder.newLine();
     _builder.newLine();

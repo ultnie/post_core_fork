@@ -255,6 +255,7 @@
     <eLiterals name="NOT" literal="NOT"/>
     <eLiterals name="UNMINUS" value="1" literal="-"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeDeltaExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrimaryExpression" eSuperTypes="#//UnaryExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="const" eType="#//Constant"
         containment="true"/>
@@ -264,6 +265,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="procStatus" eType="#//ProcessStatusExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="funCall" eType="#//FunctionCall"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeDelta" eType="#//TimeDeltaExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nestExpr" eType="#//Expression"
         containment="true"/>
@@ -457,6 +460,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//TimeLiteral"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="str" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SignedInteger">

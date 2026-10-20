@@ -33,6 +33,7 @@ import su.nsk.iae.post.poST.ProcessStatusExpression;
 import su.nsk.iae.post.poST.RealLiteral;
 import su.nsk.iae.post.poST.SignedInteger;
 import su.nsk.iae.post.poST.SymbolicVariable;
+import su.nsk.iae.post.poST.TimeDeltaExpression;
 import su.nsk.iae.post.poST.TimeLiteral;
 import su.nsk.iae.post.poST.UnaryExpression;
 import su.nsk.iae.post.poST.UnaryOperator;
@@ -166,6 +167,11 @@ public class GeneratorUtil {
     boolean _tripleNotEquals_3 = (_time != null);
     if (_tripleNotEquals_3) {
       return GeneratorUtil.parseInterval(constant.getTime().getInterval());
+    }
+    String _str = constant.getStr();
+    boolean _tripleNotEquals_4 = (_str != null);
+    if (_tripleNotEquals_4) {
+      return constant.getStr();
     }
     boolean _equals = constant.getOth().equals("TRUE");
     if (_equals) {
@@ -459,54 +465,60 @@ public class GeneratorUtil {
         _builder_4.append("= MuteNum(0b0)");
         return _builder_4.toString();
       }
+      if ((Objects.equals(v.getType(), "STRING") || Objects.equals(v.getType(), "WSTRING"))) {
+        StringConcatenation _builder_5 = new StringConcatenation();
+        _builder_5.append(" ");
+        _builder_5.append("= MuteStr(\"\")");
+        return _builder_5.toString();
+      }
     }
     boolean _isArray_1 = v.isArray();
     if (_isArray_1) {
-      StringConcatenation _builder_5 = new StringConcatenation();
-      _builder_5.append(" ");
-      _builder_5.append("= [");
-      String _join = IterableExtensions.join(v.getArraValues(), ", ");
-      _builder_5.append(_join, " ");
-      _builder_5.append("]");
-      return _builder_5.toString();
-    }
-    if ((((Objects.equals(v.getType(), "BYTE") || Objects.equals(v.getType(), "WORD")) || Objects.equals(v.getType(), "DWORD")) || Objects.equals(v.getType(), "LWORD"))) {
       StringConcatenation _builder_6 = new StringConcatenation();
       _builder_6.append(" ");
-      _builder_6.append("= b\'");
-      String _value = v.getValue();
-      _builder_6.append(_value, " ");
+      _builder_6.append("= [");
+      String _join = IterableExtensions.join(v.getArraValues(), ", ");
+      _builder_6.append(_join, " ");
+      _builder_6.append("]");
       return _builder_6.toString();
+    }
+    if ((((Objects.equals(v.getType(), "BYTE") || Objects.equals(v.getType(), "WORD")) || Objects.equals(v.getType(), "DWORD")) || Objects.equals(v.getType(), "LWORD"))) {
+      StringConcatenation _builder_7 = new StringConcatenation();
+      _builder_7.append(" ");
+      _builder_7.append("= b\'");
+      String _value = v.getValue();
+      _builder_7.append(_value, " ");
+      return _builder_7.toString();
     }
     String _type_5 = v.getType();
     boolean _equals_5 = Objects.equals(_type_5, "HEX_INT");
     if (_equals_5) {
-      StringConcatenation _builder_7 = new StringConcatenation();
-      _builder_7.append(" ");
-      _builder_7.append("= 0x");
+      StringConcatenation _builder_8 = new StringConcatenation();
+      _builder_8.append(" ");
+      _builder_8.append("= 0x");
       String _value_1 = v.getValue();
-      _builder_7.append(_value_1, " ");
-      return _builder_7.toString();
+      _builder_8.append(_value_1, " ");
+      return _builder_8.toString();
     }
     String _type_6 = v.getType();
     boolean _equals_6 = Objects.equals(_type_6, "OCT_INT");
     if (_equals_6) {
-      StringConcatenation _builder_8 = new StringConcatenation();
-      _builder_8.append(" ");
-      _builder_8.append("= 0o");
+      StringConcatenation _builder_9 = new StringConcatenation();
+      _builder_9.append(" ");
+      _builder_9.append("= 0o");
       String _value_2 = v.getValue();
-      _builder_8.append(_value_2, " ");
-      return _builder_8.toString();
+      _builder_9.append(_value_2, " ");
+      return _builder_9.toString();
     }
     String _type_7 = v.getType();
     boolean _equals_7 = Objects.equals(_type_7, "BIN_INT");
     if (_equals_7) {
-      StringConcatenation _builder_9 = new StringConcatenation();
-      _builder_9.append(" ");
-      _builder_9.append("= 0b");
+      StringConcatenation _builder_10 = new StringConcatenation();
+      _builder_10.append(" ");
+      _builder_10.append("= 0b");
       String _value_3 = v.getValue();
-      _builder_9.append(_value_3, " ");
-      return _builder_9.toString();
+      _builder_10.append(_value_3, " ");
+      return _builder_10.toString();
     }
     String _type_8 = v.getType();
     boolean _equals_8 = Objects.equals(_type_8, "BOOL");
@@ -514,26 +526,35 @@ public class GeneratorUtil {
       String _value_4 = v.getValue();
       boolean _equals_9 = Objects.equals(_value_4, "TRUE");
       if (_equals_9) {
-        StringConcatenation _builder_10 = new StringConcatenation();
-        _builder_10.append(" ");
-        _builder_10.append("= True");
-        return _builder_10.toString();
+        StringConcatenation _builder_11 = new StringConcatenation();
+        _builder_11.append(" ");
+        _builder_11.append("= True");
+        return _builder_11.toString();
       }
       String _value_5 = v.getValue();
       boolean _equals_10 = Objects.equals(_value_5, "FALSE");
       if (_equals_10) {
-        StringConcatenation _builder_11 = new StringConcatenation();
-        _builder_11.append(" ");
-        _builder_11.append("= False");
-        return _builder_11.toString();
+        StringConcatenation _builder_12 = new StringConcatenation();
+        _builder_12.append(" ");
+        _builder_12.append("= False");
+        return _builder_12.toString();
       }
     }
-    StringConcatenation _builder_12 = new StringConcatenation();
-    _builder_12.append(" ");
-    _builder_12.append("= ");
-    String _value_6 = v.getValue();
-    _builder_12.append(_value_6, " ");
-    return _builder_12.toString();
+    if ((Objects.equals(v.getType(), "STRING") || Objects.equals(v.getType(), "WSTRING"))) {
+      StringConcatenation _builder_13 = new StringConcatenation();
+      _builder_13.append(" ");
+      _builder_13.append("= MuteStr(");
+      String _value_6 = v.getValue();
+      _builder_13.append(_value_6, " ");
+      _builder_13.append(")");
+      return _builder_13.toString();
+    }
+    StringConcatenation _builder_14 = new StringConcatenation();
+    _builder_14.append(" ");
+    _builder_14.append("= ");
+    String _value_7 = v.getValue();
+    _builder_14.append(_value_7, " ");
+    return _builder_14.toString();
   }
 
   public static String generateExpression(final Expression exp) {
@@ -549,59 +570,65 @@ public class GeneratorUtil {
       if (_tripleNotEquals) {
         return GeneratorUtil.generateConstant(((PrimaryExpression)exp).getConst());
       } else {
-        SymbolicVariable _variable = ((PrimaryExpression)exp).getVariable();
-        boolean _tripleNotEquals_1 = (_variable != null);
+        TimeDeltaExpression _timeDelta = ((PrimaryExpression)exp).getTimeDelta();
+        boolean _tripleNotEquals_1 = (_timeDelta != null);
         if (_tripleNotEquals_1) {
-          if ((gVar != null)) {
-            return gVar.apply(((PrimaryExpression)exp).getVariable());
-          }
-          return ((PrimaryExpression)exp).getVariable().getName();
+          return GeneratorUtil.generatedT();
         } else {
-          ArrayVariable _array = ((PrimaryExpression)exp).getArray();
-          boolean _tripleNotEquals_2 = (_array != null);
+          SymbolicVariable _variable = ((PrimaryExpression)exp).getVariable();
+          boolean _tripleNotEquals_2 = (_variable != null);
           if (_tripleNotEquals_2) {
-            if ((gArray != null)) {
-              return gArray.apply(((PrimaryExpression)exp).getArray());
+            if ((gVar != null)) {
+              return gVar.apply(((PrimaryExpression)exp).getVariable());
             }
-            StringConcatenation _builder = new StringConcatenation();
-            String _name = ((PrimaryExpression)exp).getArray().getVariable().getName();
-            _builder.append(_name);
-            _builder.append("[");
-            String _generateExpression = GeneratorUtil.generateExpression(((PrimaryExpression)exp).getArray().getIndex(), gVar, gArray, gPStatus);
-            _builder.append(_generateExpression);
-            _builder.append("]");
-            return _builder.toString();
+            return ((PrimaryExpression)exp).getVariable().getName();
           } else {
-            ProcessStatusExpression _procStatus = ((PrimaryExpression)exp).getProcStatus();
-            boolean _tripleNotEquals_3 = (_procStatus != null);
+            ArrayVariable _array = ((PrimaryExpression)exp).getArray();
+            boolean _tripleNotEquals_3 = (_array != null);
             if (_tripleNotEquals_3) {
-              if ((gPStatus != null)) {
-                return gPStatus.apply(((PrimaryExpression)exp).getProcStatus());
+              if ((gArray != null)) {
+                return gArray.apply(((PrimaryExpression)exp).getArray());
               }
-              StringConcatenation _builder_1 = new StringConcatenation();
-              return _builder_1.toString();
+              StringConcatenation _builder = new StringConcatenation();
+              String _name = ((PrimaryExpression)exp).getArray().getVariable().getName();
+              _builder.append(_name);
+              _builder.append("[");
+              String _generateExpression = GeneratorUtil.generateExpression(((PrimaryExpression)exp).getArray().getIndex(), gVar, gArray, gPStatus);
+              _builder.append(_generateExpression);
+              _builder.append("]");
+              return _builder.toString();
             } else {
-              FunctionCall _funCall = ((PrimaryExpression)exp).getFunCall();
-              boolean _tripleNotEquals_4 = (_funCall != null);
+              ProcessStatusExpression _procStatus = ((PrimaryExpression)exp).getProcStatus();
+              boolean _tripleNotEquals_4 = (_procStatus != null);
               if (_tripleNotEquals_4) {
-                StringConcatenation _builder_2 = new StringConcatenation();
-                String _name_1 = ((PrimaryExpression)exp).getFunCall().getFunction().getName();
-                _builder_2.append(_name_1);
-                _builder_2.append("(");
-                final Function<Expression, String> _function = (Expression x) -> {
-                  return GeneratorUtil.generateExpression(x, gVar, gArray, gPStatus);
-                };
-                String _generateParamAssignmentElements = GeneratorUtil.generateParamAssignmentElements(((PrimaryExpression)exp).getFunCall().getArgs(), _function);
-                _builder_2.append(_generateParamAssignmentElements);
-                _builder_2.append(")");
-                return _builder_2.toString();
+                if ((gPStatus != null)) {
+                  return gPStatus.apply(((PrimaryExpression)exp).getProcStatus());
+                }
+                StringConcatenation _builder_1 = new StringConcatenation();
+                return _builder_1.toString();
               } else {
-                StringConcatenation _builder_3 = new StringConcatenation();
-                _builder_3.append("(");
-                String _generateExpression_1 = GeneratorUtil.generateExpression(((PrimaryExpression)exp).getNestExpr(), gVar, gArray, gPStatus);
-                _builder_3.append(_generateExpression_1);
-                _builder_3.append(")");
-                return _builder_3.toString();
+                FunctionCall _funCall = ((PrimaryExpression)exp).getFunCall();
+                boolean _tripleNotEquals_5 = (_funCall != null);
+                if (_tripleNotEquals_5) {
+                  StringConcatenation _builder_2 = new StringConcatenation();
+                  String _name_1 = ((PrimaryExpression)exp).getFunCall().getFunction().getName();
+                  _builder_2.append(_name_1);
+                  _builder_2.append("(");
+                  final Function<Expression, String> _function = (Expression x) -> {
+                    return GeneratorUtil.generateExpression(x, gVar, gArray, gPStatus);
+                  };
+                  String _generateParamAssignmentElements = GeneratorUtil.generateParamAssignmentElements(((PrimaryExpression)exp).getFunCall().getArgs(), _function);
+                  _builder_2.append(_generateParamAssignmentElements);
+                  _builder_2.append(")");
+                  return _builder_2.toString();
+                } else {
+                  StringConcatenation _builder_3 = new StringConcatenation();
+                  _builder_3.append("(");
+                  String _generateExpression_1 = GeneratorUtil.generateExpression(((PrimaryExpression)exp).getNestExpr(), gVar, gArray, gPStatus);
+                  _builder_3.append(_generateExpression_1);
+                  _builder_3.append(")");
+                  return _builder_3.toString();
+                }
               }
             }
           }

@@ -164,6 +164,16 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 					Vars[name].__set__(value)
 				except:
 					Vars[name] = value
+					
+		
+		def getTimeDelta():
+		    global _global_time
+		    global _prev_global_time
+		
+		    if _prev_global_time is None:
+		        return 0
+		
+		    return _global_time - _prev_global_time
 		
 		«IF programs.isEmpty()»
 			«generateEmptyTemplate()»
@@ -260,8 +270,8 @@ class PyGenerator implements IDsmExecutor, IPoSTGenerator {
 		def run_iter(self):
 			global _global_time
 			Vars['_global_time'] = _global_time
-			Vars['_prev_global_time'] = _prev_global_time
 			_prev_global_time = _global_time
+			Vars['_prev_global_time'] = _prev_global_time
 
 
 	def getVariable(name):

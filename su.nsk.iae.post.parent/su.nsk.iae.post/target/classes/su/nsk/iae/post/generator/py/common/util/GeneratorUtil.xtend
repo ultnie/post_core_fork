@@ -91,6 +91,9 @@ class GeneratorUtil {
 			//return '''timedelta(«parseInterval(constant.time.interval)»)'''
 			return parseInterval(constant.time.interval)
 		}
+		if (constant.str !== null) {
+			return constant.str
+		}
 		if (constant.oth.equals('TRUE')) {
 			return 'MuteBool(True)'
 		}
@@ -251,6 +254,9 @@ class GeneratorUtil {
 			if (v.type == "BIN_INT") {
 				return ''' = MuteNum(0b0)'''
 			}
+			if (v.type == "STRING" || v.type == "WSTRING") {
+				return ''' = MuteStr("")'''
+			}
 		}
 		if (v.array) {
 			return ''' = [«v.arraValues.join(', ')»]'''	
@@ -273,6 +279,9 @@ class GeneratorUtil {
 			if (v.value == "FALSE")
 				return ''' = False'''
 		}
+		if (v.type == "STRING" || v.type == "WSTRING") {
+			return ''' = MuteStr(«v.value»)'''
+		}
 		return ''' = «v.value»'''
 	}
 	
@@ -288,6 +297,8 @@ class GeneratorUtil {
 			PrimaryExpression: {
 				if (exp.const !== null) {
 					return exp.const.generateConstant
+				} else if (exp.timeDelta !== null) {
+					return generatedT
 				} else if (exp.variable !== null) {
 					if (gVar !== null) {
 						return gVar.apply(exp.variable)

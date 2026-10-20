@@ -189,9 +189,6 @@ TimeoutStatement:
 
 ResetTimerStatement:
 	{ResetTimerStatement} 'RESET' 'TIMER';
-	
-TimeDeltaStatement:
-	{TimeDeltaStatement} '#dT';
 
 /* ======================= END poST Statements ======================= */
 
@@ -265,9 +262,12 @@ UnaryExpression:
 
 enum UnaryOperator:
 	NOT='NOT' | UNMINUS='-';
+	
+TimeDeltaExpression:
+    {TimeDeltaExpression} '#dT';
 
 PrimaryExpression:
-	const=Constant | variable=[SymbolicVariable] | array=ArrayVariable | procStatus=ProcessStatusExpression | funCall=FunctionCall | '(' nestExpr=Expression ')';
+	const=Constant | variable=[SymbolicVariable] | array=ArrayVariable | procStatus=ProcessStatusExpression | funCall=FunctionCall | timeDelta=TimeDeltaExpression | '(' nestExpr=Expression ')';
 
 /* ======================= END Expression ======================= */
 
@@ -286,8 +286,7 @@ Statement:
 	(ExitStatement ';') |
 	(ProcessStatements ';') |
 	(SetStateStatement ';') |
-	(ResetTimerStatement ';') |
-	(TimeDeltaStatement ';');
+	(ResetTimerStatement ';');
 
 Inline_code:
 	{Inline_code} (inline_code += INLINE_PHRASE)+;
@@ -523,10 +522,15 @@ terminal STRING_TYPE_NAME returns ecore::EString:
 Constant:
 	num=NumericLiteral | 
 	time=TimeLiteral | 
+	str=STRING_LITERAL |
 	oth=(BINARY_INTEGER | 
 		OCTAL_INTEGER | 
 		HEX_INTEGER | 
 		BOOLEAN_LITERAL);
+		
+terminal STRING_LITERAL returns ecore::EString:
+    '"' ( '\\' . | !('\\'|'"') )* '"' |
+    "'" ( '\\' . | !('\\'|"'") )* "'";
 
 terminal INTEGER returns ecore::EString:
 	DIGIT+;

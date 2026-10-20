@@ -46,9 +46,15 @@ class ProgramGenerator {
 	}
 	
 	def String generateProgram(ConfigurationGenerator configuration, URI source) {
-		prepareConfVars(source.devicePath())
-		prepareProgramVars
-		return generateBody(configuration)
+	    confInVars = new ArrayList<String>()
+	    confOutVars = new ArrayList<String>()
+	
+	    if (templateProcess && configuration !== null) {
+	        prepareConfVars(source.toFileString)
+	    }
+	
+	    prepareProgramVars
+	    return generateBody(configuration)
 	}
 	
 	def prepareConfVars(String path) {
@@ -81,7 +87,9 @@ class ProgramGenerator {
 				}
 			}
 		}
-		catch (Exception e) {}
+		catch (Exception e) {
+			System.err.println("prepareConfVars failed for path: " + path)
+    		e.printStackTrace()}
 		finally {
 			inputStream.close()
 		}
@@ -174,13 +182,12 @@ class ProgramGenerator {
 			global _dT
 			
 			Vars['_global_time'] = _global_time
-			_dT = getTimeDelta()
-			Vars['_dT'] = _dT
+			setVariable('_dT', getTimeDelta())
 			
 			for process in self.processes:
 				process.run()
-			Vars['_prev_global_time'] = _prev_global_time
 			_prev_global_time = _global_time
+			Vars['_prev_global_time'] = _prev_global_time
 	
 	
 	def getVariable(name):

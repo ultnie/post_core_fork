@@ -1,5 +1,6 @@
 package su.nsk.iae.post.generator;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -83,7 +84,8 @@ public class Main {
 	protected void runGenerator(String string, boolean local, String filename) {
 		// Load the resource
 		ResourceSet set = resourceSetProvider.get();
-		Resource resource = set.getResource(URI.createFileURI(string), true);
+		File file = new File(string).getAbsoluteFile();
+		Resource resource = set.getResource(URI.createFileURI(file.getPath()), true);
 
 		// Validate the resource
 		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
