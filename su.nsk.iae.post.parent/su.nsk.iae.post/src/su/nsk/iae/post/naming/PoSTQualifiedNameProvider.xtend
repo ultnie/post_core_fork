@@ -6,6 +6,7 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.QualifiedName
 import su.nsk.iae.post.poST.Function
 import su.nsk.iae.post.poST.FunctionBlock
+import su.nsk.iae.post.poST.Library
 import su.nsk.iae.post.poST.Process
 import su.nsk.iae.post.poST.ProcessVarInitDeclaration
 import su.nsk.iae.post.poST.Program
@@ -31,14 +32,42 @@ class PoSTQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider 
 				return ele.taskQualifiedName
 			Program:
 				return QualifiedName.create(ele.name)
+			Library:
+				return QualifiedName.create(ele.name)
 			FunctionBlock:
-				return QualifiedName.create(ele.name)
+				return ele.libraryMemberQualifiedName
 			Function:
-				return QualifiedName.create(ele.name)
+				return ele.libraryMemberQualifiedName
+			Process:
+				return ele.libraryMemberQualifiedName
 		}
 		return super.qualifiedName(ele)	
 	}
 	
+	private def QualifiedName getLibraryMemberQualifiedName(Function ele) {
+		val library = ele.getContainerOfType(Library)
+		if (library !== null) {
+			return QualifiedName.create(library.name, ele.name)
+		}
+		return QualifiedName.create(ele.name)
+	}
+
+	private def QualifiedName getLibraryMemberQualifiedName(FunctionBlock ele) {
+		val library = ele.getContainerOfType(Library)
+		if (library !== null) {
+			return QualifiedName.create(library.name, ele.name)
+		}
+		return QualifiedName.create(ele.name)
+	}
+
+	private def QualifiedName getLibraryMemberQualifiedName(Process ele) {
+		val library = ele.getContainerOfType(Library)
+		if (library !== null) {
+			return QualifiedName.create(library.name, ele.name)
+		}
+		return super.qualifiedName(ele)
+	}
+
 	private def QualifiedName getSymbolicVariableQualifiedName(SymbolicVariable ele) {
 		if (ele.checkVarInitDeclaration) {
 			return ele.initVariableQualifiedName

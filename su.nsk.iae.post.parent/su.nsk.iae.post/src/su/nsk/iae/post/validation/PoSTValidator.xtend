@@ -20,6 +20,7 @@ import su.nsk.iae.post.poST.FBInvocation
 import su.nsk.iae.post.poST.ForStatement
 import su.nsk.iae.post.poST.FunctionBlock
 import su.nsk.iae.post.poST.FunctionCall
+import su.nsk.iae.post.poST.Library
 import su.nsk.iae.post.poST.GlobalVarDeclaration
 import su.nsk.iae.post.poST.GlobalVarInitDeclaration
 import su.nsk.iae.post.poST.IfStatement
@@ -260,7 +261,7 @@ class PoSTValidator extends AbstractPoSTValidator {
 						 process.procOutVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count +
 						 process.procInOutVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count +
 						 process.procProcessVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count
-		val programVars = ele.args.elements.stream.count
+		val programVars = if (ele.args === null) 0 else ele.args.elements.size
 		if (attachVars != programVars) {
 			error("Process attach error: Not all input output and Process Variables are used",
 					ePackage.templateProcessConfElement_Process)
@@ -305,7 +306,8 @@ class PoSTValidator extends AbstractPoSTValidator {
 		if ((ele.programVar instanceof ProcessVariable) && (ele.attVar instanceof TemplateProcessConfElement)) {
 			val programVar = ele.programVar as ProcessVariable
 			val attVar = ele.attVar as TemplateProcessConfElement
-			if (programVar.getContainerOfType(ProcessVarInitDeclaration).process.name != attVar.process.name) {
+			val expectedProcess = programVar.getContainerOfType(ProcessVarInitDeclaration).process
+			if (expectedProcess !== attVar.process) {
 				error("Attach error: Process Variable must be " + attVar.process.name,
 						ePackage.templateProcessAttachVariableConfElement_AttVar)
 			}
@@ -313,6 +315,47 @@ class PoSTValidator extends AbstractPoSTValidator {
 	}
 
 /* ======================= END Configuration Checks ======================= */
+
+/* ======================= START Library Checks ======================= */
+
+	@Check
+	def checkLibrary_OnlyLibraryContent(Library ele) {
+		val model = ele.getContainerOfType(Model)
+		if (model === null) {
+			return
+		}
+		if (model.libraries.size !== 1) {
+			error("Library error: A library resource must contain exactly one LIBRARY declaration", ePackage.library_Name)
+		}
+		if (model.conf !== null || !model.globVars.empty || !model.programs.empty || !model.fbs.empty || !model.funs.empty) {
+			error("Library error: LIBRARY cannot be mixed with top-level programs, functions, function blocks, configuration, or global variables", ePackage.library_Name)
+		}
+	}
+
+	@Check
+	def checkLibrary_MemberNameConflicts(Library ele) {
+		val names = new HashSet<String>
+		for (function : ele.funs) {
+			if (!names.add(function.name)) {
+				error("Library error: Duplicate exported name '" + function.name + "'", ePackage.library_Name)
+			}
+		}
+		for (fb : ele.fbs) {
+			if (!names.add(fb.name)) {
+				error("Library error: Duplicate exported name '" + fb.name + "'", ePackage.library_Name)
+			}
+		}
+		for (process : ele.processes) {
+			if (!names.add(process.name)) {
+				error("Library error: Duplicate exported name '" + process.name + "'", ePackage.library_Name)
+			}
+		}
+		if (names.empty) {
+			error("Library error: A library must export at least one function, function block, or process", ePackage.library_Name)
+		}
+	}
+
+/* ======================= END Library Checks ======================= */
 
 /* ======================= START poST Checks ======================= */
 
@@ -362,6 +405,10 @@ class PoSTValidator extends AbstractPoSTValidator {
 	
 	@Check
 	def checkProcess_NameConflicts(Process ele) {
+		// Library member names are checked together across functions, FBs and processes.
+		if (ele.getContainerOfType(Library) !== null) {
+			return
+		}
 		val program = ele.getContainerOfType(Program)
 		if ((program !== null) && program.checkNameRepetition(ele)) {
 			error("Name error: Program already has a Process with this name", ePackage.variable_Name)
@@ -389,7 +436,8 @@ class PoSTValidator extends AbstractPoSTValidator {
 	
 	@Check
 	def checkProcess_Unreachable(Process ele) {
-		if (ele.template) {
+		// Library processes are reusable definitions, not active program entry points.
+		if (ele.getContainerOfType(Library) !== null || ele.template) {
 			return
 		}
 		val program = ele.getContainerOfType(Program)
@@ -403,6 +451,9 @@ class PoSTValidator extends AbstractPoSTValidator {
 			return
 		}
 		val fb = ele.getContainerOfType(FunctionBlock)
+		if (fb === null) {
+			return
+		}
 		if (fb.processes.indexOf(ele) === 0) {
 			return
 		}
@@ -519,15 +570,26 @@ class PoSTValidator extends AbstractPoSTValidator {
 	}
 	
 	private def checkProcessStatement_InvalidArgument(EObject context, Variable ele) {
-		if (ele === null) {
+		if (ele === null || !(ele instanceof Process)) {
 			return
 		}
-		if (ele instanceof Process) {
-			val program = ele.getContainerOfType(Program)
-			if (!program.processes.contains(ele)) {
-				error("Name error: Program does not contain a Process with this name", ePackage.processStatements_Process)
-				return
-			}
+		val sourceProcess = context.getContainerOfType(Process)
+		if (sourceProcess === null) {
+			return
+		}
+		val program = sourceProcess.getContainerOfType(Program)
+		if (program !== null && !program.processes.contains(ele)) {
+			error("Name error: Program does not contain a Process with this name", ePackage.processStatements_Process)
+			return
+		}
+		val fb = sourceProcess.getContainerOfType(FunctionBlock)
+		if (fb !== null && !fb.processes.contains(ele)) {
+			error("Name error: FunctionBlock does not contain a Process with this name", ePackage.processStatements_Process)
+			return
+		}
+		val library = sourceProcess.getContainerOfType(Library)
+		if (library !== null && !library.processes.contains(ele)) {
+			error("Name error: Library does not contain a Process with this name", ePackage.processStatements_Process)
 		}
 	}
 	
@@ -607,7 +669,7 @@ class PoSTValidator extends AbstractPoSTValidator {
 		val attachVars = function.funInVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count +
 						 function.funOutVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count +
 						 function.funInOutVars.stream.map([x | x.vars]).flatMap([x | x.stream]).map([x | x.varList.vars]).flatMap([x | x.stream]).count
-		val programVars = ele.args.elements.stream.count
+		val programVars = if (ele.args === null) 0 else ele.args.elements.size
 		if (attachVars != programVars) {
 			if (!ele.checkContainer(InputVarDeclaration) && !ele.checkContainer(InputOutputVarDeclaration)) {
 				error("Attach error: Not all input and output Variables are used", ePackage.functionCall_Function)
